@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="../resources/images/icon-bds.ico" rel="shortcut icon" type="image/x-icon" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/style.css"/>
+        <ui:insert name="script">
+
+        </ui:insert>
+        <title>
+            <ui:insert name="title">
+
+            </ui:insert>
+        </title>
+    </h:head>
+
+    <h:body>
+
+        <div id="TrangChinh">
+            <div id="DauTrang">
+                <ul id="MenuTren">
+                    <li><a href="index.xhtml">Home</a></li>
+                    <li><a href="account.xhtml">Welcome, #{registerAdmin.loginUser.UUsername}</a></li>
+                    <li> <h:form>
+                            <p:commandLink ajax="false" action="#{registerAdmin.logOut}" value="Logout" />
+                        </h:form>
+                    </li>
+                </ul>
+            </div><!--Dong DauTrang-->
+            <div id="NoiDungChinh"> 
+                &nbsp;
+                <div id="MenuTrai">
+                    <div class="widget">
+                        <h2>Admin</h2>
+                        <ul id="menu-categories-menu">                                    
+                            <li>
+                                <a href="account.xhtml">Change Profile</a>
+                            </li>
+                        </ul>
+                    </div><!--Dong widget-->    
+                    <div class="widget">
+                        <h2>Property management</h2>
+                        <ul id="menu-categories-menu">
+                            <li>
+                                <a href="propertytype.xhtml">Property type manager</a>
+                            </li>
+                            <li>
+                                <a href="property.xhtml">Properties manager</a>
+                            </li>
+                            <li>
+                                <a href="tradingproperty.xhtml">Trading manager</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="widget">
+                        <h2>User management</h2>
+                        <ul id="menu-categories-menu">                                    
+                            <li>
+                                <a href="user.xhtml">User manager</a>
+                            </li>
+                            <li>
+                                <a href="admin.xhtml">Admin manager</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="widget">
+                        <h2>Location management</h2>
+                        <ul id="menu-categories-menu">                                    
+                            <li>
+                                <a href="province.xhtml">Province manager</a>
+                            </li>
+                            <li>
+                                <a href="district.xhtml">District manager</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="widget">
+                        <h2>Utility management</h2>
+                        <ul id="menu-categories-menu">
+                            <li>
+                                <a href="faqs.xhtml">FAQs manager</a>
+                            </li>
+                            <li>
+                                <a href="directorytype.xhtml">Directory type manager</a>
+                            </li>
+                            <li>
+                                <a href="directory.xhtml">Directory manager</a>
+                            </li>
+                            <li>
+                                <a href="feedback.xhtml">Feedback manager</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="widget">
+                        <h2>Statistic</h2>
+                        <ul id="menu-categories-menu">
+                            <li>
+                                <a href="TopUserMostPost.xhtml">Top user have most post</a>
+                            </li>
+                            <li>
+                                <a href="TopPostMostView.xhtml">Top post have most view</a>
+                            </li>
+                            <li>
+                                <a href="TopPostMostFav.xhtml">Top post have most favorite</a>
+                            </li>
+                            <li>
+                                <a href="StatisticPostInYear.xhtml">Statistic number of post in year</a>
+                            </li>
+                            <li>
+                                <a href="StatisticViewInYear.xhtml">Statistic view of post in year</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div id="NoiDung">
+
+                    <!--                    <div class="widget_content">-->
+
+                    <ui:insert name="content"><h2>Chuc nang 1</h2></ui:insert>
+                    <p:spacer height="25"/>
+                    <!--                        <div class="post">
+                    
+                                            </div>								-->
+                    <!--                    </div>Dong widget_content-->
+
+                </div><!--Dong NoiDung-->
+            </div><!--Dong NoiDungChinh-->
+            <div id="ChanTrang">
+                copyright medic
+            </div><!--Dong ChanTrang-->
+        </div>
+    </h:body>
+
+</html>

@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:metadata>
+        <f:viewParam name="type" value="#{directoryAdminBean.searchkey}"/>
+    </f:metadata>
+    <body>
+
+        <ui:composition template="./../view/TemplateAdmin.xhtml">
+            <ui:define name="title">
+                Directory management
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <p:commandButton update=":formCreate" oncomplete="PF('dlg').show()" icon="ui-icon-plus" title="Add" value="Add"></p:commandButton>
+                    <p:inputText id="searchtext" value="#{directoryAdminBean.searchkey}" />
+                    <p:commandButton  value="Search" action="directory?faces-redirect=true&amp;includeViewParams=true;" />
+                </h:form>
+
+                <h:form id="formView">
+                    <p:messages id="msgs"  autoUpdate="true" closable="true" />
+
+                    <p:dataTable id="basicDT" var="dir" value="#{directoryAdminBean.allDirectory}"
+                                 rows="10" paginator="true" paginatorPosition="bottom"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+
+                        <f:facet name="header">
+                            Directory manager
+                        </f:facet>
+
+                        <p:column headerText="Name">
+                            <h:outputText value="#{dir.dirName}" />
+                        </p:column>
+                        <p:column headerText="Type">
+                            <h:outputText value="#{dir.directoryType.dirtName}" />
+                        </p:column>
+                        <p:column headerText="Address">
+                            <h:outputText value="#{dir.dirAddress}" />
+                        </p:column>
+                        <p:column headerText="Website">
+                            <h:outputText value="#{dir.dirWebsite}" />
+                        </p:column>
+                        <p:column headerText="Phone">
+                            <h:outputText value="#{dir.dirPhone}" />
+                        </p:column>
+
+                        <p:column headerText="Action" style="text-align: center">
+                            <p:commandButton id="btnUpdate" update=":formUpdate" oncomplete="PF('dlg').show()" icon="ui-icon-document-b" title="View">
+                                <f:setPropertyActionListener value="#{dir}" target="#{directoryAdminBean.directorySelected}" />
+                            </p:commandButton>
+                            <p:commandButton id="btnDelete" update=":formDel" oncomplete="PF('dlg').show()" icon="ui-icon-trash" title="Delete">
+                                <f:setPropertyActionListener value="#{dir}" target="#{directoryAdminBean.directorySelected}" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+                <h:form id="formCreate" enctype="multipart/form-data">
+                    <p:dialog  header="Add new directory" widgetVar="dlg" 
+                               modal="true" resizable="false">
+                        <p:outputPanel  id="provinceCreate" style="text-align:center;">
+                            <h:panelGrid id="gird" columns="3" cellpadding="0" >
+
+                                <h:outputText value="Name" style="font-weight: bold" />
+                                <p:inputText id="name" value="#{directoryAdminBean.directorySelected.dirName}" 
+                                             required="true" style="font-weight: bold"
+                                             requiredMessage="Required name field">
+                                </p:inputText>
+                                <p:message for="name" />
+
+                                <h:outputText value="Type" style="font-weight: bold" />
+                                <p:selectOneMenu id="type" style="width: 211px" value="#{directoryAdminBean.directorySelected.directoryType.dirtId}" 
+                                                 required="true" requiredMessage="Required type of directory field" >  
+                                    <f:selectItem itemLabel="--Select type--" itemValue="" />  
+                                    <f:selectItems value="#{directoryTypeBean.allDirectoryType}" var="dirt" itemLabel="#{dirt.dirtName}" itemValue="#{dirt.dirtId}"/>  
+                                </p:selectOneMenu>
+                                <p:message for="type" />
+
+                                <h:outputText value="Address" style="font-weight: bold" />
+                                <p:inputText id="address" value="#{directoryAdminBean.directorySelected.dirAddress}" required="true" style="font-weight: bold"
+                                             requiredMessage="Required address field">
+                                </p:inputText>
+                                <p:message for="address" />
+
+                                <h:outputText value="Website" style="font-weight: bold" />
+                                <p:inputText id="web" value="#{directoryAdminBean.directorySelected.dirWebsite}" required="true" style="font-weight: bold"
+                                             requiredMessage="Required website field">
+                                </p:inputText>
+                                <p:message for="web" />
+
+                                <h:outputText value="Phone" style="font-weight: bold" />
+                                <p:inputText id="phone" value="#{directoryAdminBean.directorySelected.dirPhone}" required="true" style="font-weight: bold"
+                                             requiredMessage="Required phone field">
+                                </p:inputText>
+                                <p:message for="phone" />
+
+                                <h:outputText value="Description" />
+                                <p:editor value="#{directoryAdminBean.directorySelected.dirDescription}" 
+                                          controls=""  required="false" />
+                                <h:inputHidden/>
+
+                                <h:outputText value="Images" />
+                                <p:fileUpload value="#{directoryAdminBean.fileMain}" mode="simple"
+                                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                                <h:inputHidden/>
+
+                                <f:facet name="footer">
+                                    <p:spacer height="25"/>
+                                    <p:commandButton id="btnAdd" value="Add" oncomplete="handleRequest(xhr, status, args)" 
+                                                     ajax="false" validateClient="true"
+                                                     update="gird, :formView:, :formView:msgs" actionListener="#{directoryAdminBean.addDirectory}"
+                                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Cancel" type="button" update=":formCreate" onclick="PF('dlg').hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </f:facet>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+
+
+                <h:form id="formUpdate" enctype="multipart/form-data">
+                    <p:dialog  header="Update Directory" widgetVar="dlg" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel  id="provinceUpdate" style="text-align:center;">
+                            <h:panelGrid id="gird" columns="3" rendered="#{not empty directoryAdminBean.directorySelected}" style="border: 0"  columnClasses="label,value">
+
+                                <h:outputText value="Name" style="font-weight: bold" />
+                                <p:inputText id="name" value="#{directoryAdminBean.directorySelected.dirName}" 
+                                             required="true" style="font-weight: bold"
+                                             requiredMessage="Required name field">
+                                </p:inputText>
+                                <p:message for="name" />
+
+                                <h:outputText value="Type" style="font-weight: bold" />
+                                <p:selectOneMenu id="type" style="width: 211px" value="#{directoryAdminBean.directorySelected.directoryType.dirtId}" 
+                                                 required="true" requiredMessage="Required type of directory field" >  
+                                    <f:selectItem itemLabel="--Select type--" itemValue="" />  
+                                    <f:selectItems value="#{directoryTypeBean.allDirectoryType}" var="dirt" itemLabel="#{dirt.dirtName}" itemValue="#{dirt.dirtId}"/>  
+                                </p:selectOneMenu>
+                                <p:message for="type" />
+
+                                <h:outputText value="Address" style="font-weight: bold" />
+                                <p:inputText id="address" value="#{directoryAdminBean.directorySelected.dirAddress}" required="true" style="font-weight: bold"
+                                             requiredMessage="Required address field">
+                                </p:inputText>
+                                <p:message for="address" />
+
+                                <h:outputText value="Website" style="font-weight: bold" />
+                                <p:inputText id="web" value="#{directoryAdminBean.directorySelected.dirWebsite}" required="true" style="font-weight: bold"
+                                             requiredMessage="Required website field">
+                                </p:inputText>
+                                <p:message for="web" />
+
+                                <h:outputText value="Phone" style="font-weight: bold" />
+                                <p:inputText id="phone" value="#{directoryAdminBean.directorySelected.dirPhone}" required="true" style="font-weight: bold"
+                                             requiredMessage="Required phone field">
+                                </p:inputText>
+                                <p:message for="phone" />
+
+                                <h:outputText value="Description" />
+                                <p:editor value="#{directoryAdminBean.directorySelected.dirDescription}" 
+                                          controls=""  required="false" />
+                                <h:inputHidden/>
+
+                                <h:outputText value="Images" />
+                                <p:fileUpload value="#{directoryAdminBean.fileMain}" mode="simple"
+                                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                                <h:inputHidden/>
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Update"  oncomplete="handleRequest(xhr, status, args)"
+                                                     ajax="false" validateClient="true"
+                                                     update="gird, :formView:basicDT"  actionListener="#{directoryAdminBean.updateDirectory}"
+                                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Cancel" type="button" onclick="PF('dlg').hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </f:facet>
+                                <h:inputHidden value="#{directoryAdminBean.directorySelected.dirId}"/>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formDel">
+                    <p:outputPanel  id="provinceDel" style="text-align:center;">
+                        <p:confirmDialog rendered="#{not empty directoryAdminBean.directorySelected}" 
+                                         widgetVar="dlg"
+                                         message="Are you sure to delete this directory?" >
+                            <p:commandButton id="confirm" value="Yes" 
+                                             update=":formView:, :formView:msgs" oncomplete="PF('dlg').hide()"
+                                             actionListener="#{directoryAdminBean.deleteDirectory}"
+                                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton id="cancel" value="No" type="button" onclick="PF('dlg').hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            <h:inputHidden value="#{directoryAdminBean.directorySelected.dirId}"/>
+                        </p:confirmDialog>
+                    </p:outputPanel>
+                </h:form>
+
+
+
+                <script type="text/javascript">
+                    function handleRequest(xhr, status, args) {
+                        if (args.validationFailed) {
+                            //PF('dlg').jq.effect("shake", {times: 5}, 100);
+                        }
+                        else {
+
+                            PF('dlg').hide();
+
+                        }
+                    }
+                </script>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

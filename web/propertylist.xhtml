@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:metadata>
+        <f:param id="refreshid" value="#{propertyBean.id}" />
+    </f:metadata>
+    <body>
+
+        <ui:composition template="./view/TemplateUser.xhtml">
+
+            <ui:define name="title">
+                Listing management
+            </ui:define>
+
+
+            <ui:define name="content">
+                <div style="padding: 10px">
+                    <div class="bold-title">
+                        LISTING MANAGEMENT
+                    </div>
+                    <h:form>
+                        <h:panelGrid columns="6" cellpadding="10px" cellspacing="5px">
+                            From
+                            <p:calendar id="fromDate" pattern="dd-MM-yyyy" value="#{propertyUserBean.fromDate}" mask="true" />
+
+                            To
+                            <p:calendar id="toDate" pattern="dd-MM-yyyy" mask="true" />
+
+                            Category
+                            <p:selectOneMenu style="width: 120px" id="typOfProperty" value="#{propertyUserBean.cat}" >  
+                                <f:selectItem itemLabel="--Select type--" itemValue="" />  
+                                <f:selectItems value="#{propertyBean.allPropertyType}" var="prot" itemLabel="#{prot.protName}" itemValue="#{prot.protId}"/>  
+                            </p:selectOneMenu>
+
+
+                            Publish
+                            <p:selectOneMenu id="publish" value="#{propertyUserBean.publish}" style="width:125px;margin: 5px 5px 5px 0">
+                                <f:selectItem itemLabel="--Select publish--" itemValue="" />
+                                <f:selectItem itemLabel="Publish" itemValue="true" />
+                                <f:selectItem itemLabel="Unpublish" itemValue="false" />
+                            </p:selectOneMenu>
+
+                            <p:commandButton value="Search" update="dataG" ajax="false" actionListener="#{propertyUserBean.searchProperty}"  />
+
+                        </h:panelGrid>
+
+                        <p:dataGrid id="dataG" value="#{propertyUserBean.generateListProperty}"
+                                  rows="5"  paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    columns="1" var="property"
+                                    rowsPerPageTemplate="5,10,15">
+                            <div id="BoxYourProperty">
+                                <div class="ListProperty" id="txtHint">
+                                    <ul style="padding-left: 0px">
+                                        <li class="ItemsPostPro clr_bortop">
+                                            <div class="col_imgages">
+                                                <strong>ID: #{property.proId}</strong>
+                                                <a href="updateproperty.xhtml?id=#{property.proId}" target="_blank">
+                                                    <p:graphicImage url="#{property.urlImage}" 
+                                                                    width="100" height="75" /> 
+<!--                                                    <img src="{property.urlImage}" width="100" height="75" />-->
+                                                </a>
+                                            </div>
+                                            <div class="col_description">    
+                                                <div class="Furniture">      
+                                                    <h3>
+                                                        <span class="BgPriceProperty">
+                                                            <h3 class="Bold_d50">
+                                                                <h:outputText value="#{property.proPrice}">
+                                                                    <f:convertNumber type="currency" />
+                                                                </h:outputText></h3>
+                                                        </span>
+                                                    </h3>
+                                                    <div style="float: right">
+                                                        (<span><b>
+                                                                <h:outputText value="#{property.proArea}">
+                                                                    <f:convertNumber type="number" />
+                                                                </h:outputText></b> m<sup>2</sup></span>)
+                                                    </div>
+
+                                                </div>      
+                                                <div class="Title">#{property.getTitleSub(60)}</div>
+                                                <div class="LocationPro">     
+                                                    <span class="Districts">#{property.district.distName}</span>
+                                                    <ui:fragment rendered="#{property.proPublish}">
+                                                        <span style="color: green" >(Publish)</span>
+                                                    </ui:fragment>
+                                                    <ui:fragment rendered="#{!property.proPublish}">
+                                                        <span style="color: red" >(Unpublish)</span>
+                                                    </ui:fragment>
+                                                    <ui:fragment rendered="#{property.proStatus==0}">
+                                                        <span style="color: green" >(Trading)</span>
+                                                    </ui:fragment>
+                                                    <ui:fragment rendered="#{property.proStatus==1}">
+                                                        <span style="color: red" >(Stop trading)</span>
+                                                    </ui:fragment>
+                                                </div>        
+                                                <ul class="Date">      
+                                                    <li>
+                                                        <span>Create:</span> 
+                                                        <h:outputText value="#{property.proCreateDate}">
+                                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                        </h:outputText>
+                                                    </li>            
+                                                    <li>
+                                                        <span>Update:</span> 
+                                                        <h:outputText value="#{property.proPublishDate}">
+                                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                        </h:outputText>
+                                                    </li>   
+                                                    <li>
+                                                        <span>Hit: </span> 
+                                                        <h:outputText value="#{property.proHit}">
+                                                            <f:convertNumber type="number" />
+                                                        </h:outputText>
+                                                    </li>
+                                                    <li>
+                                                        <span>Favourite: </span> 
+                                                        <h:outputText value="#{property.favoriteProperties.size()}">
+                                                            <f:convertNumber type="number" />
+                                                        </h:outputText>
+                                                    </li>   
+                                                </ul>
+                                                <div class="viewVersion">
+                                                    <a target="_blank" href="propertydetails.xhtml?propertyid=#{property.proId}">View property</a>
+                                                </div>  
+                                            </div>   
+                                            <div class="col_gadget">  
+                                                <p:growl id="msgs" autoUpdate="true" life="1000" />
+                                                <ul>
+                                                    <li>
+                                                        <p:commandLink action="#{propertyBean.refreshProperty(property.proId)}"
+                                                                       ajax="true" update="msgs"
+                                                                       value="Refresh property" />
+                                                    </li>  
+                                                    <li>
+                                                        <p:link outcome="updateproperty" value="Update">
+                                                            <f:param name="id" value="#{property.proId}" />
+                                                        </p:link>
+                                                    </li>
+<!--                                                    <li>
+                                                        <p:commandLink action="{propertyBean.refreshProperty(property.proId)}"
+                                                                       ajax="false" update="msgs"
+                                                                       value="Unpublish" />
+                                                    </li>-->
+                                                    <ui:fragment rendered="#{property.proStatus==0}">
+                                                        <li>
+                                                            <p:commandLink action="#{propertyBean.stopTradingProperty(property.proId)}"
+                                                                           ajax="false" update="msgs"
+                                                                           value="Stop trading" />
+                                                        </li>
+                                                    </ui:fragment>
+                                                    <ui:fragment rendered="#{property.proStatus==1}">
+                                                        <li>
+                                                            <p:commandLink action="#{propertyBean.updateTradingProperty(property.proId)}"
+                                                                           ajax="false" update="msgs"
+                                                                           value="Activate trading" />
+                                                        </li>
+                                                    </ui:fragment>
+                                                    <li>
+                                                        <p:commandLink id="btnDelete" update=":frmDel" value="Delete"
+                                                                       oncomplete="PF('dlg').show()" title="Delete">
+                                                            <f:setPropertyActionListener target="#{propertyBean.property}" value="#{property}"/>
+                                                        </p:commandLink>
+
+                                                    </li>    
+
+                                                </ul>    
+                                            </div>   
+                                        </li>
+                                    </ul>
+                                    <div id="dvPaging">
+
+                                    </div>
+                                    <div class="clr_both">
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </p:dataGrid>
+                    </h:form>
+                    <h:form id="frmDel">
+                        <p:outputPanel  style="text-align:center;">
+                            <p:confirmDialog 
+                                widgetVar="dlg"
+                                message="Are you sure to delete this property?" >
+                                <p:commandButton id="confirm" value="Yes" 
+                                                 oncomplete="PF('dlg').hide()"
+                                                 actionListener="#{propertyBean.deleteOneProperty}"
+                                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton id="cancel" value="No" type="button" onclick="PF('dlg').hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                <h:inputHidden value="#{propertyBean.property.proId}" />
+                            </p:confirmDialog>
+                        </p:outputPanel>
+                    </h:form>
+                </div>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

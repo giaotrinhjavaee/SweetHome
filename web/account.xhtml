@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet name="./css/style.css"/>
+    </h:head>
+    <f:metadata>
+        <f:viewAction action="#{accountBean.initUser}" />
+    </f:metadata>
+    <body>
+
+        <ui:composition template="./view/TemplateUser.xhtml">
+
+            <ui:define name="title">
+                Account management
+            </ui:define>
+
+
+            <ui:define name="content">
+                <h:form>
+                    <div style="padding: 10px">
+                        <div class="bold-title">
+                            Update profile
+                        </div>
+                        <p:messages autoUpdate="true" closable="true" />
+                        <h:panelGrid id="gird" columns="3" cellpadding="10px" cellspacing="5px">
+
+                            <h:outputText value="Username" style="font-weight: bold" />
+                                <h:outputText value="#{accountBean.user.UUsername}" style="font-weight: bold" />
+                                <h:inputHidden/>
+
+                                <h:outputText value="Fullname" style="font-weight: bold"/>
+                                <p:inputText id="fname" value="#{accountBean.user.UFullname}" required="true" requiredMessage="Required fullname" />
+                                <p:message for="fname" />
+
+                                <h:outputText value="Phone" style="font-weight: bold"/>
+                                <p:inputText id="phone" value="#{accountBean.user.UPhone}" required="true" requiredMessage="Required phone"  validatorMessage="Phone must be a number 10-11 length">
+                                    <f:validateDoubleRange minimum="0000000000" maximum="99999999999" />
+                                </p:inputText>
+                                <p:message for="phone" />
+
+                                <h:outputText value="Email" style="font-weight: bold"/>
+                                <p:inputText id="email" value="#{accountBean.user.UEmail}" required="true" validatorMessage="Email is invalid" requiredMessage="Required email" >
+                                    <f:validateRegex 
+                                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />     
+                                </p:inputText>
+                                <p:message for="email" />
+
+                                <h:outputText value="Telephone" />
+                                <p:inputText id="tphone" value="#{accountBean.user.UTelephone}" required="true" requiredMessage="Required telephone" />
+                                <p:message for="tphone" />
+
+                                <f:facet name="footer">
+                                    <p:spacer height="25"/>
+                                    <p:commandButton id="btnAdd" value="Update" oncomplete="handleRequest(xhr, status, args)" 
+                                                     ajax="true" validateClient="true"
+                                                     update="gird" actionListener="#{accountBean.updateAccount}"
+                                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                </f:facet>
+                        </h:panelGrid>
+                    </div>
+                </h:form>
+
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

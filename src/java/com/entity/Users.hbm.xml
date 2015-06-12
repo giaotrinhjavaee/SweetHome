@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 4, 2015 2:41:12 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.entity.Users" table="Users" schema="dbo" catalog="MSH" optimistic-lock="version">
+        <id name="UUsername" type="string">
+            <column name="u_username" />
+            <generator class="assigned" />
+        </id>
+        <property name="UPassword" type="string">
+            <column name="u_password" />
+        </property>
+        <property name="UFullname" type="string">
+            <column name="u_fullname" />
+        </property>
+        <property name="UPhone" type="string">
+            <column name="u_phone" />
+        </property>
+        <property name="UTelephone" type="string">
+            <column name="u_telephone" />
+        </property>
+        <property name="UEmail" type="string">
+            <column name="u_email" />
+        </property>
+        <property name="UDescription" type="string">
+            <column name="u_description" />
+        </property>
+        <property name="UActived" type="java.lang.Boolean">
+            <column name="u_actived" />
+        </property>
+        <property name="UIsAdmin" type="java.lang.Boolean">
+            <column name="u_isAdmin" />
+        </property>
+        <set name="favoriteProperties" table="FavoriteProperty" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fav_user" />
+            </key>
+            <one-to-many class="com.entity.FavoriteProperty" />
+        </set>
+        <set name="properties" table="Property" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="pro_user" />
+            </key>
+            <one-to-many class="com.entity.Property" />
+        </set>
+    </class>
+</hibernate-mapping>

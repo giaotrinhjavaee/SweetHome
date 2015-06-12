@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./view/TemplateUser.xhtml">
+
+            <ui:define name="title">
+                Favorite list
+            </ui:define>
+
+            <ui:define name="content">
+                <div style="padding: 10px">
+                    <div class="bold-title">
+                        Favorite list
+                    </div>
+                    <h:form id="formView">
+                        <p:messages id="msgs"  autoUpdate="true" closable="true" />
+                        <p:dataTable id="basicDT" var="favorite" value="#{favoriteBean.allFavorite}"
+                                     rows="5" paginator="true" paginatorPosition="bottom"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     >
+                            <p:column width="105" >
+                                <p:graphicImage url="#{favorite.property.urlImage}"/>  
+                            </p:column>
+                            <p:column headerText="Property" >
+<!--                                <div class="viewVersion">-->
+                                    <a target="_blank" href="propertydetails.xhtml?propertyid=#{favorite.property.proId}">
+                                        <h:outputText value="#{favorite.property.proTitle}" />
+                                    </a>
+<!--                                </div>-->
+                            </p:column>
+                            <p:column style="width:30px;text-align: right">
+                                <p:commandButton id="btnDelete" update=":formDel" oncomplete="PF('dlg').show()" icon="ui-icon-trash" title="Delete">
+                                    <f:setPropertyActionListener value="#{favorite}" target="#{favoriteBean.favoriteSelected}" />
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:form>
+                    <h:form id="formDel">
+                        <p:confirmDialog rendered="#{not empty favoriteBean.favoriteSelected}" 
+                                         widgetVar="dlg"
+                                         message="Are you sure to delete this favorite?" >
+                            <p:commandButton id="confirm" value="Yes" 
+                                             update=":formView:, :formView:msgs" oncomplete="PF('dlg').hide()"
+                                             actionListener="#{favoriteBean.deleteFavorite}"
+                                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton id="cancel" value="No" type="button" onclick="PF('dlg').hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            <h:inputHidden value="#{favoriteBean.favoriteSelected.favId}"/>
+                        </p:confirmDialog>
+
+                    </h:form>
+
+                </div>
+
+
+                <script type="text/javascript">
+                    function handleRequest(xhr, status, args) {
+                        if (args.validationFailed) {
+                            //PF('dlg').jq.effect("shake", {times: 5}, 100);
+                        }
+                        else {
+
+                            PF('dlg').hide();
+
+                        }
+                    }
+                </script>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,584 @@
+
+/* CSS Document */
+
+/*@media screen {*/
+/*    * { margin: 0; padding: 0; }    */
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, font, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        font-weight: inherit;
+        font-style: inherit;
+        font-size: 100%;
+        font-family: inherit;
+        vertical-align: baseline;
+    }
+
+    ul, ol {list-style: none;}
+    strong {font-weight: bold;}
+
+    article, aside, figure, footer, header, hgroup, menu, nav, section { display: block; }
+
+    .group:after { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; }
+    .group { display: inline-block; clear: both; }
+    /* start commented backslash hack \*/ * html .group { height: 1%; } .group { display: block; } /* close commented backslash hack */
+
+    body { 
+        font-family: Arial,Helvetica,sans-serif;
+font-size: 12px;
+    }
+    .ui-paginator span{
+        font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+    /*
+            TYPOGRAPHY
+    */
+    h1, h2, h3, h4, h5 {}
+    a img { border: 0; }
+    a {color:#0000EE;text-decoration: none;} /*mau sac cua the a*/
+    .zoomer:active { top: 0; }
+
+
+    /**********Trang chinh********/
+    #TrangChinh{
+        margin: 0 auto; 
+        width: 1200px;
+        background: #ccdcde;
+/*        box-shadow: -3px 0px 3px #c9c9c9, 3px 0px 3px #c9c9c9;*/
+    }
+
+    #DauTrang {
+        height: 50px;
+        padding: 0px 0px 0px 0px;
+        background-color: #1d353f;
+        border-bottom:  2px ridge #020304;
+    }
+
+    #NoiDungChinh{
+        display:block;
+        float:left;
+        background-color: #d6e2e5;
+        width: 100%;
+    }
+
+    #ChanTrang {
+        height: 40px;
+        padding: 0px 0px 0px 0px;
+        background-color: #1d353f;
+        border-top:  2px ridge #020304;
+        float:left;
+        display:block;
+        width: 1200px;
+        color: #FFFFFF;    
+        font-weight:bold;
+        line-height: 40px;
+        text-align:center;
+        text-transform:capitalize;
+        font-style: normal;
+        font-variant: normal;
+        font-size: 15px;
+        font-family: "Myriad Pro";
+    }
+
+    /*********Menutren*********/
+    #MenuTren{
+        float: right;
+/*        margin: 0px 25px;*/
+    } 
+    #MenuTren li{
+        position: relative;
+        float: left;			  
+    }
+    #MenuTren li a{    
+        float: left;
+        display: block;
+        color: #FFFFFF;
+        padding: 0px 10px;    
+        font: 15px Myriad Pro;      
+        font-weight:bold;
+        line-height: 50px;
+        border-left: 1px solid #020304;
+    }
+    #MenuTren li:last-child a{ 
+        border-right: 1px solid #020304;
+    }
+    #MenuTren li:hover a{
+        color: white;
+        background-color: #344a53;	
+    }
+
+
+
+    #MenuTren li ul{
+        position: absolute;      
+        width: 100%; 
+        top: 100%;       /*xep ul ngang hang voi li cha cua no*/
+        left: -8px;
+        display: none;
+        z-index: 10000; /*lam cho cai menu item nam tren cai thanh phan phia duoi*/
+    }
+
+    #MenuTren li#logged:hover ul li a{	
+        border-radius:0px;
+    }
+    #MenuTren li:hover ul{
+        display: block;
+    }
+    #MenuTren li ul li a{	
+        float: none;
+        font-size: 14px;	
+        border-top: 1px solid #6a7282;  
+        margin: 0px;	
+    }
+
+
+    #MenuTren li ul li{   
+        width:100%;
+    }
+
+    #MenuTren li ul li:hover a{
+        background-color: #3f4551;
+        color: #FFFFFF;    
+    }
+    /*********noi dung cua trang bo tri trai phai***********/
+    #MenuTrai{    
+        width: 260px;		
+        float: left;
+    }
+
+    #NoiDung{
+        float: left;
+        width: 900px;
+        margin-left:20px;
+    }
+
+    /**********Menu trai***********/
+    .widget {	
+        background: #f8f9fa;
+        margin: 20px 10px 20px 35px;
+        border: 1px solid #bcbdbd;
+        width: 220px;
+        border-radius: 5px;
+/*        box-shadow: 0px -2px 3px #c9c9c9, 2px 0px 3px #c9c9c9;*/
+    }
+
+    .widget h2{
+        padding: 3px 0 0 10px;
+        text-transform:uppercase;
+        font-weight:bold;
+        color: #344a53;
+        height: 40px;
+        background:url(../img/h2_bg.png);
+        border-bottom: 1px solid #bcbdbd;
+        border-radius: 5px 5px 0 0;
+        line-height: 40px;
+    }
+
+    #menu-categories-menu li a{
+        color: #2069b4;
+        display: block;
+        padding: 5px 0px 5px 10px;
+        border-bottom: 1px dotted #bcd4da;
+    }
+    #menu-categories-menu li:last-child a{
+        border-bottom: none;
+    }
+
+    #menu-categories-menu li a:hover{
+        color: #ce9702;
+    }
+
+    /********Noi dung chinh ben phai**********/
+    .widget_content{
+        box-shadow: 0px -2px 3px #c9c9c9, 2px 0px 3px #c9c9c9;
+        border-radius: 6px;
+    }
+    #NoiDung{
+        margin-top: 20px;
+    }
+
+    #NoiDung h2{	
+        padding: 3px 0 0 10px;
+        text-transform:uppercase;
+        font-weight:bold;
+        color: #344a53;
+        height: 40px;
+        background:url(../img/h2_bg.png);
+        border: 1px solid #bcbdbd;
+        border-radius: 5px 5px 0 0;
+        line-height: 40px;
+    }
+
+    .post{
+        background-color:#FFF;
+        border: 1px solid #c9c9c9;
+        border-top: none;
+        padding: 10px;
+        margin-bottom: 40px;
+    }
+    /********Bang du lieu**********/
+    .table{		
+        margin: 0px auto;
+        padding: 0px;	
+        box-shadow: 0px 3px 3px #c9c9c9, 3px 0px 3px #c9c9c9;    
+    }
+
+    .table tr td{
+        padding: 5px 10px;
+    }
+
+    .table tr th{
+        padding: 0px 10px;
+        line-height: 40px;
+        color: #344a53;
+        text-transform:uppercase;
+        font-weight:bold;	
+        background: url(../img/h2_bg.png);
+    }
+
+    .table th{
+        border-right: 1px solid #c9c9c9;
+    }
+    .table td{
+        border-right: 1px solid #c9c9c9;
+        vertical-align:middle;
+    }
+
+    .table td input[type="image"]{
+        vertical-align:middle;
+        border-radius: 4px;
+    }
+
+    .table td:last-of-type{
+        border-right: none;
+    }
+    .table tr td img
+    {
+        border-radius:20px;
+        width:40px;
+        height:40px;
+        border-right: 1px solid #c9c9c9;
+        box-shadow: 0px 2px 2px #c9c9c9, 2px 0px 2px #c9c9c9;  
+    }
+
+    .table tr:nth-last-of-type(2n){
+        background: #e6f3fd;
+    }
+    /********So trang**********/
+    .table tr td table{
+        float:right;
+    }
+    .table tr td table tr td
+    {
+        border: none;
+        height:10px;
+        padding: 0px;
+    }
+
+    .table tr td table tr td a{
+        color: #344a53;
+        font-weight:bold;
+        font-size:12px;
+        padding: 0px 5px;
+    }
+    .table tr td table tr td span{
+        color: #7eb533;
+        font-weight:bold;
+        font-size:12px;
+    }
+
+    /***login form***/
+    #LoginForm {	
+        background:#FFF;
+        border-radius: 10px;
+        margin:  100px auto;
+        position:relative;
+        width:400px;
+    }
+    #LoginForm  h2{
+        padding: 20px;
+        font-size: 17px;
+        color: #1d353f;
+        font-weight:bold;
+        text-transform:capitalize;
+    }
+
+    #LoginForm  div[name="form"] {
+        margin-left: 20px;	
+    }
+
+    #LoginForm  div a{
+        color:#787878;		
+    }
+
+    #LoginForm  div input.textBox{
+        width:320px;
+        height:35px;
+        color:#787878;
+        font-weight:bold;
+        background-color:#eeeeee;
+        border-radius: 3px;
+        border: 1px solid  #cbcbcb;
+        padding-left: 30px;
+        margin-bottom: 20px;
+    }
+
+    #LoginForm  div input[type="submit"]{
+        background-color:#273e48;
+        width:62px;
+        height:30px;
+        color:#ffffff;
+        font-weight:bold;
+        background:url(../img/btnLogin.png);
+        border: none;
+        margin-bottom: 20px;
+    }
+
+    #LoginForm  div input[type="submit"]:hover{
+        cursor:pointer;
+    }
+
+    #LoginForm  div#bottom{
+
+        width: 400px;
+        height: 10px;
+        border-radius: 5px;
+        border-color:#F00;
+    }
+
+    #LoginForm div[name="name"]{
+        position:absolute;
+        top: 82px;
+        left: 30px;
+        background:url(../img/name.png);
+        height:14px;
+        width: 15px;
+    }
+    #LoginForm div[name="lock"]{
+        position:absolute;
+        left: 30px;
+        top: 137px;
+        background:url(../img/lock.png);
+        height:14px;
+        width: 13px;
+    }
+
+    #LoginForm div[name="Mail"]{
+        position:absolute;
+        left: 30px;
+        top: 137px;
+        background:url(../img/Mail.png);
+        height:14px;
+        width: 14px;
+    }
+
+
+    /************Error box************/
+    .error_box div{
+        width: 350px;
+        margin-top: 20px;
+    }
+    .error_box ul{
+        list-style-image:url(../Img/error.png);
+        padding-left: 30px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-right: 5px;
+        font-size: 14px;
+        font-weight:bold;
+    }
+
+    /************Info box************/
+    .info_box div{
+        background-color: #e5f5f9;    
+        border: 1px solid #73b3c2;
+        border-radius: 4px;
+        color: #458b9c;
+    }
+    .info_box ul{
+        list-style-image:url(../img/info.png);
+        padding-left: 30px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-right: 5px;
+        font-size: 14px;
+    }
+
+    /************Confirm box************/
+    .confirm_box div{
+        background: linear-gradient(#b9d77e,#5b8f24);
+        border: 1px solid #6eac2d;
+        color: red;
+        border-radius: 4px;
+        width: 350px;
+        margin-top: 20px;
+    }
+    .confirm_box ul{
+        list-style-image:url(../Img/ok.png);
+        padding-left: 30px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-right: 5px;
+        font-size: 14px;
+        color: #fff;
+        font-weight:bold;
+    }
+
+    /******Dinh dang form*****/
+
+    input[type="text"]{
+        width:200px;
+        height:17px;
+        color:#464646;
+        font-weight:bold;
+        background: none repeat scroll 0% 0% #FFF;
+        border-radius: 1px;
+        border: 1px solid  #cbcbcb;
+        margin-bottom: 10px;
+    }
+
+    input[type="password"]{
+        width:200px;
+        height:17px;
+        color:#464646;
+        font-weight:bold;
+        background: none repeat scroll 0% 0% #FFF;
+        border-radius: 1px;
+        border: 1px solid  #cbcbcb;
+        margin-bottom: 10px;
+    }
+
+    input[readonly="readonly"] {
+        background-color: #e5f5f9;
+        border: 1px solid #cae0e5;  
+    }
+
+    textarea[readonly="readonly"]{
+        background-color: #e5f5f9;
+        border: 1px solid #cae0e5;  
+    }
+
+    input.number[type="text"] {
+        text-align:right;
+    }
+
+    input[type="image"]{
+        margin-top: 4px;
+        margin-bottom: -3px;
+    }
+
+    input[type="submit"]{
+        background-color:#273e48;
+        width:62px;
+        height:30px;
+        color:#ffffff;
+        font-weight:bold;
+        background:url(../img/btnLogin.png);
+        border: none;
+        margin-bottom: 20px;
+    }
+
+    input[type="submit"]:hover{
+        cursor:pointer;
+    }
+
+    input[type="button"]{
+        border-style: none;
+        border-color: inherit;
+        border-width: medium;
+        padding: 5px 15px;
+        background-color: #2069b4;
+        text-transform: uppercase;
+        color: #FFF;
+        font-weight: bold;
+        border-radius: 5px;
+        height: 29px; 
+    }
+
+    input[type="reset"]{
+        background-color:#273e48;
+        width:62px;
+        height:30px;
+        color:#ffffff;
+        font-weight:bold;
+        background:url(../img/btnLogin.png);
+        border: none;
+        margin-bottom: 20px;
+    }
+
+
+    input[type="button"]:hover{
+        cursor:pointer;
+    }
+    .form img[name="avatar"] {
+        height: 120px;
+        width: 120px;
+        border-radius:60px;
+        border-right: 1px solid #c9c9c9;
+        border-bottom: 1px solid #c9c9c9;
+        box-shadow: 0px 3px 3px #c9c9c9, 3px 0px 3px #c9c9c9;
+        position:absolute;
+        top: 25px;
+        left: 450px;
+    }
+
+    .form{
+        position:relative;
+    }
+
+    /*.form textarea {        
+            height: 150px;
+            padding: 3px 5px;
+            width: 200px;    
+            border : 1px solid #c9c9c9;
+            resize :none;
+    }
+    
+    
+    
+    
+    
+    .form tr td{
+            padding: 3px;
+        text-align: left;
+    }
+    .form{margin: 0 0 0 40px;}
+    
+    select {
+        height: 25px;
+        padding: 0 0 0 5px;
+        width: 212px;
+        border : 1px solid #c9c9c9;
+    }
+    */
+    input[type="file"]{
+        height:25px;
+        color:#464646;
+        font-weight:bold;
+        margin-bottom: 20px;
+    }
+
+    .ui-selectonemenu-label{
+        height: 17px;
+
+    }
+
+    .ui-button-text-icon-right .ui-icon {
+        right: 31%;
+    }
+
+
+
+
+
+
+
+

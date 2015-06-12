@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 4, 2015 2:41:12 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.entity.Property" table="Property" schema="dbo" catalog="MSH" optimistic-lock="version">
+        <id name="proId" type="long">
+            <column name="pro_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="district" class="com.entity.District" fetch="select">
+            <column name="pro_district" />
+        </many-to-one>
+        <many-to-one name="exchangeType" class="com.entity.ExchangeType" fetch="select" not-null="true">
+            <column name="pro_ExchangeType" />
+        </many-to-one>
+        <many-to-one name="propertyType" class="com.entity.PropertyType" fetch="select">
+            <column name="pro_ProperType" />
+        </many-to-one>
+        <many-to-one name="users" class="com.entity.Users" fetch="select">
+            <column name="pro_user" />
+        </many-to-one>
+        <property name="proPublish" type="java.lang.Boolean">
+            <column name="pro_publish" />
+        </property>
+        <property name="proTitle" type="string">
+            <column name="pro_title" />
+        </property>
+        <property name="proContent" type="string">
+            <column name="pro_content" />
+        </property>
+        <property name="proPrice" type="java.lang.Long">
+            <column name="pro_price" precision="18" scale="0" />
+        </property>
+        <property name="proDeposit" type="java.lang.Long">
+            <column name="pro_deposit" precision="18" scale="0" />
+        </property>
+        <property name="proArea" type="java.lang.Long">
+            <column name="pro_area" precision="18" scale="0" />
+        </property>
+        <property name="proNegotiate" type="java.lang.Boolean">
+            <column name="pro_negotiate" />
+        </property>
+        <property name="proAddress" type="string">
+            <column name="pro_address" />
+        </property>
+        <property name="proContactName" type="string">
+            <column name="pro_ContactName" />
+        </property>
+        <property name="proContactPhone" type="string">
+            <column name="pro_ContactPhone" />
+        </property>
+        <property name="proContactAddress" type="string">
+            <column name="pro_ContactAddress" />
+        </property>
+        <property name="proImage" type="string">
+            <column name="pro_image" />
+        </property>
+        <property name="proImages" type="string">
+            <column name="pro_images" />
+        </property>
+        <property name="proPosition" type="string">
+            <column name="pro_position" />
+        </property>
+        <property name="proDirection" type="string">
+            <column name="pro_direction" />
+        </property>
+        <property name="proNoOfBathrooms" type="java.lang.Integer">
+            <column name="pro_NoOfBathrooms" />
+        </property>
+        <property name="proNoOfBebrooms" type="java.lang.Integer">
+            <column name="pro_NoOfBebrooms" />
+        </property>
+        <property name="proNoOfFloors" type="java.lang.Integer">
+            <column name="pro_NoOfFloors" />
+        </property>
+        <property name="proFurniture" type="string">
+            <column name="pro_furniture" />
+        </property>
+        <property name="proPublishDate" type="timestamp">
+            <column name="pro_PublishDate" length="23" />
+        </property>
+        <property name="proStatus" type="java.lang.Integer">
+            <column name="pro_status" />
+        </property>
+        <property name="proHit" type="java.lang.Integer">
+            <column name="pro_hit" />
+        </property>
+        <property name="proCreateDate" type="timestamp">
+            <column name="pro_CreateDate" length="23" />
+        </property>
+        <set name="favoriteProperties" table="FavoriteProperty" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fav_property" />
+            </key>
+            <one-to-many class="com.entity.FavoriteProperty" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="../resources/images/icon-bds.ico" rel="shortcut icon" type="image/x-icon" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/style.css"/>
+        <title>Login page</title>
+    </h:head>
+    <body>
+
+
+
+        <h:form id="form1">
+            <div id="TrangChinh">
+                <div id="DauTrang">
+                    <ul id="MenuTren">
+                        <li><a href="./../index.xhtml">Login To My Sweet home </a></li>
+                    </ul>
+                </div><!--Dong DauTrang-->
+                <div id="NoiDungChinh"> 
+                    <div id="LoginForm">
+                        <h2>
+                            Login Form
+                        </h2>
+                        <h:form>
+                            <div name="form">
+                                <p:outputPanel  style="text-align:center;">
+                                    <h:panelGrid columns="2" cellpadding="20px" cellspacing="10px" >
+                                        <h:outputText value="Username" />
+                                        <p:inputText id="user" value="#{registerAdmin.userselect.UUsername}" required="true" requiredMessage="Required username" />
+
+                                        <h:outputText value="Password" />
+                                        <p:password id="password" value="#{registerAdmin.userselect.UPassword}" required="true" requiredMessage="Required password" />
+
+                                        <h:inputHidden />
+                                         <p:commandButton value="Login" update="msgs" ajax="true"
+                                                          actionListener="#{registerAdmin.checkUsers}"/>
+
+                                        <h:inputHidden />
+                                        <a href="./../index.xhtml">Home</a> | <a href="./../ForgetPassword.xhtml">Forget password</a>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                                <div class="error_box">
+                                    <p:messages id="msgs"  autoUpdate="true" closable="true" />
+                                </div>
+                                <br/>
+                            </div>
+                        </h:form>                        
+                    </div>
+                </div><!--Dong NoiDungChinh-->
+                <div id="ChanTrang">
+                    <b>© Copyright 2014. All Rights Reserved</b></div>
+            </div>
+        </h:form>
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,228 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:metadata>
+        <f:viewParam name="searchkey" value="#{registerEmployees.userview}" />
+    </f:metadata>
+    <body>
+
+        <ui:composition template="./../view/TemplateAdmin.xhtml">
+
+            <ui:define name="title">
+                User management
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <p:commandButton update=":formCreate" oncomplete="PF('dlg').show()" icon="ui-icon-plus" title="Add" value="Add"></p:commandButton>
+                    <p:inputText id="searchtext" value="#{registerEmployees.userview}" />
+                    <p:commandButton  value="Search" action="user?faces-redirect=true&amp;includeViewParams=true;" />
+                </h:form>
+
+                <h:form id="formView">
+                    <p:messages id="msgs"  autoUpdate="true" closable="true" />
+
+                    <p:dataTable id="basicDT" var="user" value="#{registerEmployees.allUsers}"
+                                 rows="10" paginator="true" paginatorPosition="bottom"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+
+                        <f:facet name="header">
+                            User manager
+                        </f:facet>
+
+                        <p:column width="100" headerText="Username">
+                            <h:outputText value="#{user.UUsername}" />
+                        </p:column>
+                        <p:column width="146" headerText="Fullname">
+                            <h:outputText value="#{user.UFullname}" />
+                        </p:column>
+                        <p:column width="99" headerText="Phome">
+                            <h:outputText value="#{user.UPhone}" />
+                        </p:column>
+                        <p:column width="200" headerText="Email">
+                            <h:outputText value="#{user.UEmail}" />
+                        </p:column>
+                        <p:column width="60" headerText="Activate" style="text-align: center">
+                            <ui:fragment rendered="${user.UActived}">
+                                <p:graphicImage url="./../resources/images/tick.png"/>  
+                            </ui:fragment>
+                            <ui:fragment rendered="${!user.UActived}">
+                                <p:graphicImage url="./../resources/images/publish_x.png"/> 
+                            </ui:fragment>
+                        </p:column>
+                        <p:column width="50" headerText="No of property" style="text-align: center">
+                            <h:outputText value="#{user.sizeOfProperty}">
+                                <f:convertNumber pattern="#0" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column width="100"  headerText="Action" style="text-align: center">
+                            <h:inputHidden value="#{registerEmployees.userview}" />
+                            <p:commandButton id="btnUpdate" update=":formUpdate" oncomplete="PF('dlg').show()" icon="ui-icon-document-b" title="Update">
+                                <f:setPropertyActionListener value="#{user}" target="#{registerEmployees.userselect}" />
+                            </p:commandButton>
+                            <p:commandButton id="btnDelete" update=":formDel" oncomplete="PF('dlg').show()" icon="ui-icon-trash" title="Delete">
+                                <f:setPropertyActionListener value="#{user}" target="#{registerEmployees.userselect}" />
+                            </p:commandButton>
+                            <p:commandButton id="btnView"  action="propertyOfUser?faces-redirect=true&amp;includeViewParams=true;" icon="ui-icon-calculator" title="Property of user">
+                                <f:setPropertyActionListener value="#{user.UUsername}" target="#{propertyOfUserBean.user}" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+                <h:form id="formCreate">
+                    <p:dialog  header="Add new user" widgetVar="dlg" 
+                               modal="true" resizable="false">
+                        <p:outputPanel  id="provinceCreate" style="text-align:center;">
+                            <h:panelGrid id="gird" columns="3" cellpadding="0" style="border: 0;text-align: left" >
+
+                                <h:outputText value="Username:" style="font-weight: bold" />
+                                <p:inputText id="username" value="#{registerEmployees.userselect.UUsername}" required="true" style="font-weight: bold"
+                                             requiredMessage="Required username field"/>
+                                <p:message for="username" />
+
+                                <h:outputText value="Password:" style="font-weight: bold" />
+                                <p:inputText id="pass" type="password" value="#{registerEmployees.userselect.UPassword}" required="true" style="font-weight: bold"
+                                             requiredMessage="Required password field"/>
+                                <p:message for="pass" />
+
+                                <h:outputText value="Fullname:" style="font-weight: bold" />
+                                <p:inputText id="fname" value="#{registerEmployees.userselect.UFullname}" required="true" requiredMessage="Required fullname field" />
+                                <p:message for="fname" />
+
+                                <h:outputText value="Phone:" style="font-weight: bold" />
+                                <p:inputText id="phone" value="#{registerEmployees.userselect.UPhone}" validatorMessage="Phone must be a number 10-11 length" required="true" requiredMessage="Required phone field">
+                                    <f:validateDoubleRange minimum="0000000000" maximum="99999999999" />
+                                </p:inputText>
+                                <p:message for="phone" />
+
+                                <h:outputText value="Email:" style="font-weight: bold" />
+                                <p:inputText id="email" value="#{registerEmployees.userselect.UEmail}" required="true" validatorMessage="Email is invalid" requiredMessage="Required email field">
+                                    <f:validateRegex 
+                                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />                                
+                                </p:inputText>
+                                <p:message for="email" />
+
+                                <h:outputText value="Telephone:" />
+                                <p:inputText value="#{registerEmployees.userselect.UTelephone}" required="false"  />
+                                <h:inputHidden />
+
+                                <h:outputText value="Actived:" />
+                                <p:selectBooleanCheckbox value="#{registerEmployees.userselect.UActived}" />
+                                <h:inputHidden />
+
+                                <h:outputText value="Admin:" />
+                                <p:selectBooleanCheckbox value="#{registerEmployees.userselect.UIsAdmin}" />
+                                <h:inputHidden />
+                                <f:facet name="footer">
+                                    <p:spacer height="25"/>
+                                    <!--refresh trang bang -->
+                                    <p:commandButton id="btnAdd" value="Add" oncomplete="handleRequest(xhr, status, args)" 
+                                                     ajax="true" validateClient="true"
+                                                     update="gird, :formView:, :formView:msgs" actionListener="#{registerEmployees.addUser}"
+                                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Cancel" type="button" update=":formCreate" onclick="PF('dlg').hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </f:facet>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+
+
+                <h:form id="formUpdate">
+                    <p:dialog  header="Update user" widgetVar="dlg" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel  id="provinceUpdate" style="text-align:center;">
+                            <h:panelGrid id="gird" columns="3" rendered="#{not empty registerEmployees.userselect}" style="border: 0;text-align: left" >
+
+                                <h:outputText value="Username:" style="font-weight: bold;text-align: left;width: 100px" />
+                                <p:inputText readonly="true" id="username" value="#{registerEmployees.userselect.UUsername}" style="font-weight: bold" />
+                                <h:inputHidden />
+
+                                <h:outputText value="Fullname:"  />
+                                <p:inputText id="fname" value="#{registerEmployees.userselect.UFullname}" required="true" requiredMessage="Required fullname field" />
+                                <p:message for="fname" />
+
+                                <h:outputText value="Phone:" style="font-weight: bold" />
+                                <p:inputText id="phone" value="#{registerEmployees.userselect.UPhone}" 
+                                             validatorMessage="Phone must be a number 10-11 length" required="true" 
+                                             requiredMessage="Required phone field">
+                                <f:validateDoubleRange minimum="0000000000" maximum="99999999999" />
+                                </p:inputText>
+                                <p:message for="phone" />
+
+                                <h:outputText value="Email:" style=";font-weight: bold" />
+                                <p:inputText id="email" value="#{registerEmployees.userselect.UEmail}" required="true" validatorMessage="Email is invalid" requiredMessage="Required email field">
+                                    <f:validateRegex 
+                                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" /> 
+                                </p:inputText>
+                                <p:message for="email" />
+
+                                <h:outputText value="Password:" />
+                                <p:inputText type="password" id="name" value="#{registerEmployees.newPassword}" />
+                                <h:inputHidden />
+
+                                <h:outputText value="Telephone:" />
+                                <p:inputText value="#{registerEmployees.userselect.UTelephone}" required="false"  />
+                                <h:inputHidden />
+
+                                <h:outputText value="Actived:" />
+                                <p:selectBooleanCheckbox value="#{registerEmployees.userselect.UActived}" />
+                                <h:inputHidden />
+
+                                <h:outputText value="Admin:" />
+                                <p:selectBooleanCheckbox value="#{registerEmployees.userselect.UIsAdmin}" />
+                                <h:inputHidden />
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Update"  oncomplete="handleRequest(xhr, status, args)"
+                                                     ajax="true" validateClient="true"
+                                                     update="gird, :formView:basicDT"  actionListener="#{registerEmployees.updateUser}"
+                                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check">
+<!--                                        <p:ajax update="username"/>-->
+                                    </p:commandButton>
+                                    <p:commandButton value="Cancel" type="button" onclick="PF('dlg').hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </f:facet>
+                                <h:inputHidden value="#{registerEmployees.userselect.UUsername}" />
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formDel">
+                    <p:outputPanel  id="provinceDel" style="text-align:center;">
+                        <p:confirmDialog rendered="#{not empty registerEmployees.userselect}" 
+                                         widgetVar="dlg"
+                                         message="Are you sure to delete this user?" >
+                            <p:commandButton id="confirm" value="Yes"
+                                             update=":formView:, :formView:msgs" oncomplete="PF('dlg').hide()"
+                                             actionListener="#{registerEmployees.deleteUser}"
+                                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton id="cancel" value="No" type="button" onclick="PF('dlg').hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            <h:inputHidden value="#{registerEmployees.userselect.UUsername}"/>
+                        </p:confirmDialog>
+                    </p:outputPanel>
+                </h:form>
+
+                <script type="text/javascript">
+                    function handleRequest(xhr, status, args) {
+                        if (args.validationFailed) {
+                            //PF('dlg').jq.effect("shake", {times: 5}, 100);
+                        }
+                        else {
+
+                            PF('dlg').hide();
+
+                        }
+                    }
+                </script>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

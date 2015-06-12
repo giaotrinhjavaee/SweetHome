@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 4, 2015 2:41:12 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.entity.District" table="District" schema="dbo" catalog="MSH" optimistic-lock="version">
+        <id name="distId" type="int">
+            <column name="dist_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="province" class="com.entity.Province" fetch="select">
+            <column name="dist_province_id" />
+        </many-to-one>
+        <property name="distName" type="string">
+            <column name="dist_name" />
+        </property>
+        <property name="distDescription" type="string">
+            <column name="dist_description" />
+        </property>
+        <set name="properties" table="Property" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="pro_district" />
+            </key>
+            <one-to-many class="com.entity.Property" />
+        </set>
+    </class>
+</hibernate-mapping>

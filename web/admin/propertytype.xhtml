@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:metadata>
+        <f:viewParam name="searchkey" value="#{propertyTypeBean.propertytypeSearch}"/>
+    </f:metadata>
+    <body>
+
+        <ui:composition template="./../view/TemplateAdmin.xhtml">
+            <ui:define name="title">
+                Property type manager
+            </ui:define>
+            <ui:define name="content">
+                <h:form>
+                    <p:commandButton update=":formCreate" oncomplete="PF('dlg').show()" icon="ui-icon-plus" title="Add" value="Add"></p:commandButton>
+                    <p:inputText id="searchtext" value="#{propertyTypeBean.propertytypeSearch}" />
+                    <p:commandButton  value="Search" action="propertytype?faces-redirect=true&amp;includeViewParams=true;" />
+                </h:form>
+
+                <h:form id="formView">
+                    <p:messages id="msgs"  autoUpdate="true" closable="true" />
+
+                    <p:dataTable id="basicDT" var="propertytype" value="#{propertyTypeBean.propertyType}"
+                                 rows="10" paginator="true" paginatorPosition="bottom"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+                        <f:facet name="header">
+                            Property type manager
+                        </f:facet>
+
+                        <p:column headerText="Name">
+                            <h:outputText value="#{propertytype.protName}" />
+                        </p:column>
+                        <p:column headerText="Description">
+                            <h:outputText value="#{propertytype.protDescription}" />
+                        </p:column>
+                        <p:column style="width:128px;text-align: center">
+                            <p:commandButton id="btnUpdate" update=":formUpdate" oncomplete="PF('dlg').show()" icon="ui-icon-document-b" title="View">
+                                <f:setPropertyActionListener value="#{propertytype}" target="#{propertyTypeBean.propertytypeSelected}" />
+                            </p:commandButton>
+                            <p:commandButton id="btnDelete" update=":formDel" oncomplete="PF('dlg').show()" icon="ui-icon-trash" title="Delete">
+                                <f:setPropertyActionListener value="#{propertytype}" target="#{propertyTypeBean.propertytypeSelected}" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+                <h:form id="formCreate">
+
+                    <p:dialog  header="Property Type Add" widgetVar="dlg" 
+                               modal="true" resizable="false">
+                        <p:outputPanel  id="propertytypeCreate" style="text-align:center;">
+                            <h:panelGrid id="gird" columns="3" cellpadding="0" >
+
+                                <h:outputText value="Name" style="font-weight: bold" />
+                                <p:inputText id="name" value="#{propertyTypeBean.propertytypeSelected.protName}" required="true" style="font-weight: bold"
+                                             requiredMessage="Required field">
+                                </p:inputText>
+                                <p:message for="name" />
+
+
+                                <h:outputText value="Description" />
+                                <p:inputText value="#{propertyTypeBean.propertytypeSelected.protDescription}" required="false" label="provinceDesc" />
+
+
+                                <f:facet name="footer">
+                                    <p:spacer height="25"/>
+                                    <p:commandButton id="btnAdd" value="Add" oncomplete="handleRequest(xhr, status, args)" 
+                                                     ajax="true" validateClient="true"
+                                                     update="gird, :formView:, :formView:msgs" actionListener="#{propertyTypeBean.addPropertyType}"
+                                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Cancel" type="button" update=":formCreate" onclick="PF('dlg').hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </f:facet>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+
+
+                <h:form id="formUpdate">
+                    <p:dialog  header="Property type Update" widgetVar="dlg" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel  id="propertytypeUpdate" style="text-align:center;">
+                            <h:panelGrid id="gird" columns="3" rendered="#{not empty propertyTypeBean.propertytypeSelected}" style="border: 0"  columnClasses="label,value">
+
+                                <h:outputText value="Name" style="font-weight: bold" />
+                                <p:inputText id="name" value="#{propertyTypeBean.propertytypeSelected.protName}" required="true" style="font-weight: bold"
+                                             requiredMessage="Required field"/>
+                                <p:message for="name" />
+
+                                <h:outputText value="Desc" />
+                                <p:inputText value="#{propertyTypeBean.propertytypeSelected.protDescription}" />
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Update"  oncomplete="handleRequest(xhr, status, args)"
+                                                     ajax="true" validateClient=""
+                                                     update="gird, :formView:basicDT"  actionListener="#{propertyTypeBean.updatePropertyType}"
+                                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Cancel" type="button" onclick="PF('dlg').hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </f:facet>
+                                <h:inputHidden value="#{propertyTypeBean.propertytypeSelected.protId}"/>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formDel">
+                    <p:outputPanel  id="propertytypeDel" style="text-align:center;">
+                        <p:confirmDialog rendered="#{not empty propertyTypeBean.propertytypeSelected}" 
+                                         widgetVar="dlg"
+                                         message="Are you sure to delete this property type?" >
+                            <p:commandButton id="confirm" value="Yes" 
+                                             update=":formView:, :formView:msgs" oncomplete="PF('dlg').hide()"
+                                             actionListener="#{propertyTypeBean.deletePropertyType}"
+                                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton id="cancel" value="No" type="button" onclick="PF('dlg').hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            <h:inputHidden value="#{propertyTypeBean.propertytypeSelected.protId}"/>
+                        </p:confirmDialog>
+                    </p:outputPanel>
+                </h:form>
+
+
+
+                <script type="text/javascript">
+                    function handleRequest(xhr, status, args) {
+                        if (args.validationFailed) {
+                            //PF('dlg').jq.effect("shake", {times: 5}, 100);
+                        }
+                        else {
+
+                            PF('dlg').hide();
+
+                        }
+                    }
+                </script>
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

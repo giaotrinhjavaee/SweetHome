@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./view/Template.xhtml">
+            <ui:define name="title">
+                Real estate | Buy, sell, rent out real estate
+            </ui:define>
+
+
+
+            <ui:define name="content">
+
+                <!-- end of column one -->
+                <div class="column2">
+                    <div class="main_text_box">
+                        <h2>About Us</h2>
+                        <p> &quot;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <br />
+                            <br />
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot; </p>
+                    </div>
+                </div>
+                <!-- end of column two -->
+                <div class="column3">
+                    <div class="small_title">Special offers</div>
+                    <p:dataGrid value="#{suggestedBean.specialProperty}" styleClass="special-offers" columns="1" var="property">
+                        <div class="offer_box">
+                            <a href="propertydetails.xhtml?propertyid=#{property.proId}">
+                                <img src="#{property.urlImage}" width="130" height="98" class="img_left" alt="" border="0" />
+                            </a>
+                            <div class="offer_info">
+                                <a href="propertydetails.xhtml?propertyid=#{property.proId}">
+                                    <span class="titleoffer">#{property.proTitle}</span>
+                                </a>
+                                <p class="offer">#{property.proContent} </p>
+                                <div class="more">
+                                    <a href="propertydetails.xhtml?propertyid=#{property.proId}">...more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </p:dataGrid>
+                </div>
+
+
+                <!-- end of column three -->
+                <div class="column4">
+                    <div class="title">Latest Offers</div>
+                    <p:dataGrid value="#{suggestedBean.lastestProperty}"  columns="2" var="property">
+                        <div class="offer_box_wide offer_box_wide_index"> 
+                            <a href="propertydetails.xhtml?propertyid=#{property.proId}">
+                                <img src="#{property.urlImage}" width="130" height="98" class="img_left" alt="" border="0" />
+                            </a>
+                            <div class="offer_info"> 
+                                <a href="propertydetails.xhtml?propertyid=#{property.proId}">
+                                <span class="offer_last">#{property.proTitle}</span>
+                                </a>
+                                <p class="offer">#{property.proContent} </p>
+                                <div class="more">
+                                    <a href="propertydetails.xhtml?propertyid=#{property.proId}">...more</a></div>
+                            </div>
+                        </div>
+                    </p:dataGrid>
+                </div>
+                <!-- end of column four -->
+                <div class="column4">
+                    <div class="title">Most view Offers</div>
+                    <p:dataGrid value="#{suggestedBean.mostViewProperty}" columns="2" var="property">
+                        <div class="offer_box_wide offer_box_wide_index">
+                            <a href="propertydetails.xhtml?propertyid=#{property.proId}">
+                                <img src="#{property.urlImage}" width="130" height="98" class="img_left" alt="" border="0" />
+                            </a>
+                            <div class="offer_info"> 
+                                <a href="propertydetails.xhtml?propertyid=#{property.proId}">
+                                <span class="offer_view">#{property.proTitle}</span>
+                                </a> 
+                                <p class="offer">#{property.proContent} </p>
+                                <div class="more">
+                                    <a href="propertydetails.xhtml?propertyid=#{property.proId}">...more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </p:dataGrid>
+                </div>
+                <script type="text/javascript">
+                    $(".titleoffer").text(function (index, currentText) {
+                        if (currentText.length > 70) {
+                            return currentText.substr(0, 70) + ' ....';
+                        } else {
+                            return currentText;
+                        }
+
+                    });
+                    $(".offer").text(function (index, currentText) {
+                        if (currentText.length > 50) {
+                            return currentText.substr(0, 50) + ' ....';
+                        } else {
+                            return currentText;
+                        }
+
+                    });
+
+                    $(".offer_last").text(function (index, currentText) {
+                        if (currentText.length > 60) {
+                            return currentText.substr(0, 60) + ' ....';
+                        } else {
+                            return currentText;
+                        }
+
+                    });
+                    $(".offer_view").text(function (index, currentText) {
+                        if (currentText.length > 60) {
+                            return currentText.substr(0, 60) + ' ....';
+                        } else {
+                            return currentText;
+                        }
+
+                    });
+                </script>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

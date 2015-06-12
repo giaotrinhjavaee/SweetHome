@@ -1,0 +1,948 @@
+body
+{
+    background-color:#fff;
+    padding:0; font-family: Arial, Helvetica, sans-serif;
+    margin:0px auto auto auto;
+    color:#424849;
+    font-size:12px;
+}
+h1{
+    font-size:16px;
+    font-weight:bold;
+    color:#0f3753;
+    width: auto;
+    padding:0px 0 5px 0;
+    margin: auto;
+    text-decoration:none;
+}
+h2{
+    font-size:14px;
+    font-weight:bold;
+    color:#0f3753;
+    width: auto;
+    padding:5px 0 5px 0;
+    margin: auto;
+    text-decoration:none;
+}
+h3{
+    font-size:14px;
+    font-weight:bold;
+    color:#0464a1;
+    width: auto;
+    padding:5px 0 5px 10px;
+    margin: auto;
+    text-decoration:none;
+}
+p{
+    font-size:11px;
+    text-align:justify;
+    padding:2px;
+    margin:0px;
+}
+p.proposal_text{
+    width:170px;
+    font-size:11px;
+    text-align:justify;
+    padding:15px 0 0 15px;
+    margin:0px;
+}
+img.img_left{
+    float:left;
+    padding:0px 8px 8px 0px;
+}
+img.img_right{
+    float:right;
+    padding:0px 8px 8px 8px;
+}
+img.img_thumb{
+    float:left;
+    padding:10px;
+}
+img.img_big_pic{
+    padding:4px;
+    border:1px #CCCCCC solid;
+}
+#main_container{
+    width:1000px;
+    height:auto;
+    margin:auto;
+    padding:0px;
+}
+#header{
+    width:1000px;
+    height:110px;
+    background-color:#05619b;
+    margin:auto;
+}
+#logo{
+    width:147px;
+    height:78px;
+    float:left;
+    padding:20px 0 0 35px;
+}
+.banner_adds{
+    width:750px;
+    height:82px;
+    float:left;
+}
+/*---------------- menu tab----------------------*/
+/* ================================================================ 
+This copyright notice must be untouched at all times.
+
+The original version of this stylesheet and the associated (x)html
+is available at http://www.cssplay.co.uk/menus/final_drop3.html
+Copyright (c) 2005-2007 Stu Nicholls. All rights reserved.
+This stylesheet and the associated (x)html may be modified in any 
+way to fit your requirements.
+=================================================================== */
+/* style the outer div to give it width */
+.menu {font-size:11px;padding:0px; float:right; width:700px;}
+
+/* remove all the bullets, borders and padding from the default list styling */
+.menu ul {padding:0;margin:0;list-style-type:none; height:28px; background:#267cb2;}
+
+/* style the sub-level lists */
+.menu ul ul {width: auto;}
+
+/* float the top list items to make it horizontal and a relative positon so that you can control the dropdown menu positon */
+.menu ul li {float:left;height:28px;line-height:28px;}
+
+/* style the sub level list items */
+.menu ul ul li {display:block;width: auto;height:auto;position:relative;line-height:1em; border-bottom:1px #2384BF solid;}
+
+/* style the links for the top level */
+.menu a, .menu a:visited {display:block;float:left;height:100%;font-size:11px;text-decoration:none;color:#fff;background:#267cb2;padding:0 21px 0 17px;}
+.menu a.current{background:#3da1e0;}
+/* style the sub level links */
+.menu ul ul a, .menu ul ul a:visited {display:block;background:#267cb2; color:#fff;width:12em;height:100%;line-height:1em; padding:0.5em 1em;}
+.menu ul table ul a, .menu ul table ul a:visited  {width:14em; w\idth:12em;}
+
+
+/* style the table so that it takes no part in the layout - required for IE to work */
+.menu table {position:absolute; left:0; top:0; font-size:1em; z-index:-1;}
+.menu ul ul table {lef\t:-1px;}
+.menu ul ul table ul.left {margin-lef\t:2px;}
+
+.menu li:hover {position:relative;}
+* html .menu a:hover {position:relative;}
+
+/* style the third level background */
+.menu ul ul ul a, .menu ul ul ul a:visited {background:#3da1e0;}
+/* style the fourth level background */
+.menu ul ul ul ul a, .menu ul ul ul ul a:visited {background:#3da1e0;}
+/* style the sub level 1 background */
+.menu ul :hover a.sub1 {background:#3da1e0;}
+/* style the sub level 2 background */
+.menu ul ul :hover a.sub2 {background:#3da1e0;}
+
+/* style the level hovers */
+/* first */
+.menu a:hover {color:#fff;background:#3da1e0;}
+.menu :hover > a {color:#fff;background:#3da1e0;}
+/* second */
+.menu ul ul a:hover{color:#fff;background:#3da1e0;}
+.menu ul ul :hover > a {color:#fff;background:#3da1e0;}
+/* third */
+.menu ul ul ul a:hover {background:#3da1e0;}
+.menu ul ul ul :hover > a {background:#3da1e0;}
+/* fourth */
+.menu ul ul ul ul a:hover {background:#eee;}
+
+
+/* hide the sub levels and give them a positon absolute so that they take up no room */
+.menu ul ul {visibility:hidden;position:absolute;height:0;top:28px;left:0;width:14em;}
+
+/* position the third level flyout menu */
+.menu ul ul ul{left:14em;top:0;width:14em;}
+
+/* position the third level flyout menu for a left flyout */
+.menu ul ul ul.left {left:-14em;}
+
+
+/* make the second level visible when hover on first level list OR link */
+.menu ul li:hover ul, .menu ul a:hover ul {visibility:visible; height:auto; padding-bottom:3em; background:transparent url(../images/trans.gif);}
+/* keep the third level hidden when you hover on first level list OR link */
+.menu ul :hover ul ul{visibility:hidden;}
+/* keep the fourth level hidden when you hover on second level list OR link */
+.menu ul :hover ul :hover ul ul{visibility:hidden;}
+/* make the third level visible when you hover over second level list OR link */
+.menu ul :hover ul :hover ul{visibility:visible;}
+/* make the fourth level visible when you hover over third level list OR link */
+.menu ul :hover ul :hover ul :hover ul {visibility:visible;}
+
+/*------------------------------main content-----------------------*/
+#main_content{
+    width:1000px;
+    margin:auto;
+    clear:both;
+    background-color:#FFFFFF;
+}
+/*------------------------middle_content-----------*/
+.column1{
+    width:257px;
+    float:left;
+    margin:0px;
+    padding:10px 10px 10px 5px;
+}
+.column2{
+    width:340px;
+    float:left;
+    margin:0px;
+    padding:10px 5px 10px 5px;
+}
+.column3{
+    width:353px;
+    float:left;
+    margin:0px;
+    padding:10px 10px 10px 5px;
+}
+.column4{
+    width:720px;
+    float:left;
+    margin:0px;
+    padding:10px 0px 10px 5px;
+}
+.column5{
+    width:1000px;
+    float:left;
+    margin:0px;
+    padding:10px 0px 10px 5px;
+}
+
+.column5 .title {
+    background-color: #385870;
+    text-align: left;
+    width: 975px;
+    padding: 5px 5px 5px 20px;
+    color: #FFF;
+    font-weight: bold;
+}
+
+.offer_box_wide5 {
+    width: 300px;
+    height: 106px;
+    float: left;
+    background-color: #F3F5F6;
+    padding: 5px;
+    margin: 10px;
+}
+
+.left_box{
+    width:257px;
+    height:auto;
+    float:left;
+    padding-bottom:10px;
+}
+.top_left_box{
+    width:257px;
+    height:10px;
+    float:left;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background:#EFEDED;
+}
+.center_left_box{
+    width:257px;
+    height: auto;
+    float:left;
+   background:#EFEDED;
+}
+.bottom_left_box{
+    width:257px;
+    height:10px;
+    float:left;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background:#EFEDED;
+}
+.box_title{
+    width:257px;
+    text-align:center;
+    font-size:18px;
+    color:#615357;
+    padding:5px 0 5px 0;
+}
+.box_title span{
+    font-weight:bold;
+    color:#d8325d;
+}
+
+.main_text_box{
+    padding:5px;
+}
+.proposal{
+    width:287px;
+    height:85px;
+    background:url(../images/proposal_box.gif) no-repeat center;
+    background-position:0px 0px;
+    margin-left:15px;
+    margin-top:15px;
+}
+.title{
+    background-color:#385870;
+    text-align:left;
+    width:696px;
+    padding:5px 5px 5px 20px;
+    color:#FFFFFF;
+    font-weight:bold;
+}
+.small_title{
+    background-color:#385870;
+    text-align:left;
+    width:100%;
+    padding:5px 5px 5px 15px;
+    color:#FFFFFF;
+    font-weight:bold;
+}
+.title2{
+    background-color:#eef1f3;
+    text-align:left;
+    width:325px;
+    padding:5px 5px 5px 15px;
+    color:#d8325d;
+    font-weight:bold;
+    margin-left:5px;
+}
+
+/*-------------------details list----------------*/
+.details_list{
+    padding:10px;
+}
+.details_list ul{
+    text-decoration:none;
+    list-style:none;
+    margin:0px;
+    padding:0px;
+}
+.details_list ul li{
+    padding:5px 5px 5px 25px;
+    background:url(../images/bullet.gif) no-repeat left;
+    color:#333333;
+}
+.details_list ul li span{
+    color:#0464a1;
+}
+.button{
+    width:139px;
+    height:30px;
+    background:url(../images/blank_button.gif) no-repeat center;
+    text-align:center;
+    line-height:30px;
+    font-weight:bold;
+    font-size:13px;
+}
+.button a{
+    text-decoration:none;
+    color:#d8325d;
+}
+/*---------------offer_box----------------------*/
+.offer_box{
+    width:340px;
+    height:106px;
+    background-color:#f3f5f6;
+    padding:10px;
+    margin:10px 0px 10px 0px;
+}
+.special-offers{
+    width: 373px;
+}
+.offer_box_wide{
+    width:320px;
+    height:106px;
+    float:left;
+    background-color:#f3f5f6;
+    padding:10px;
+    margin:10px;
+}
+.offer_box_wide_index{
+    margin:5px!important;
+}
+.offer_box_wide_style1{
+    width:695px;
+    height:150px;
+    float:left;
+    background-color:#f3f5f6;
+    padding:7px;
+
+}
+.offer_box_wide_style2{
+    width: 336px;
+    height: 106px;
+    float:left;
+    background-color:#f3f5f6;
+    padding:7px;
+
+}
+.offer_info{
+    padding:5px;
+}
+.offer_info span{
+    font-weight:bold;
+    color:#d8325d;
+}
+p.offer{
+    text-align:justify;
+    font-size:10px;
+}
+.more{
+    float:right;
+    padding:3px;
+}
+.more a{
+    color:#d8325d;
+}
+.more a:hover{
+    text-decoration:none;
+}
+.big_pic{
+    width:340px;
+    text-align:center;
+    padding:5px 0 5px 0;
+}
+.pictures_thumbs{
+    width:300px;
+    padding-left:40px;
+}
+/*------------------table style---------------*/
+td{
+    padding:5px;
+
+}
+th{
+    background-color: #333333;
+    padding:5px;
+    color:#FFFFFF;
+}
+tr.color1{
+    background-color:#F3F5F6;
+}
+
+
+/*-----------------form style--------------------*/
+.form{
+    width:257px;
+    text-align:center;
+    color:#615357;
+    padding:5px 0 5px 0;
+}
+.form_row{
+    float:left;
+    width:257px;
+    text-align:center;
+    padding:3px 0 3px 0;
+}
+label.left{
+    float:left;
+    width:70px;
+    padding-top:3px;
+    text-align:right;
+}
+label.left_long{
+    float:left;
+    width:90px;
+    padding-top:3px;
+    text-align:right;
+}
+input.form_input{
+    border: 1px solid #C8D2D9;
+    background-color:#FFFFFF;
+    margin:0px;
+    width:150px;
+    float:left;
+    margin-left:10px;
+}
+.contact_information{
+    font-size:10px;
+    color:#385870;
+    text-align:left;
+    padding-left:20px;
+}
+.contact_information span{
+    color:#d8325d;
+}
+
+
+/*---------------------pagination-----------------------------*/
+
+div.pagination {
+    padding:5px;
+    margin:5px;
+    text-align:center;
+    float:left;
+    font-size:10px;
+}
+
+div.pagination a {
+    padding: 2px 5px 2px 5px;
+    margin-right: 2px;
+    border: 1px solid #ddd;
+
+    text-decoration: none; 
+    color: #d8325d;
+}
+div.pagination a:hover, div.pagination a:active {
+    border:1px solid #ddd;
+    color: #fff;
+    background-color: #d8325d;
+}
+div.pagination span.current {
+    padding: 2px 5px 2px 5px;
+    margin-right: 2px;
+    border: 1px solid #ddd;
+    font-weight: bold;
+    background-color: #d8325d;
+    color: #FFF;
+}
+div.pagination span.disabled {
+    padding: 2px 5px 2px 5px;
+    margin-right: 2px;
+    border: 1px solid #ddd;
+    color: #ccc;
+}
+/*-----------------------contact------------------------*/
+.contact_tab{
+    width:705px;
+    height: auto;
+    float:left;
+    background-color:#f3f5f6;
+    padding:8px;
+    margin:5px 5px 5px 0px;
+}
+.form_contact{
+    width:357px;
+    float:left;
+    text-align:center;
+    color:#615357;
+    padding:5px 0 5px 0;
+}
+.location_contact{
+    width:250px;
+    float:left;
+    padding:15px;
+}
+.form_row_contact{
+    float:left;
+    width:357px;
+    text-align:center;
+    padding:3px 0 3px 0;
+}
+input.form_input_contact{
+    border: 1px solid #C8D2D9;
+    background-color:#FFFFFF;
+    margin:0px;
+    width:250px;
+    float:left;
+    margin-left:10px;
+}
+select.form_select{
+    border: 1px solid #C8D2D9;
+    background-color:#FFFFFF;
+    margin:0px;
+    width:250px;
+    float:left;
+    margin-left:10px;
+    height:20px;
+}
+textarea{
+    border: 1px solid #C8D2D9;
+    background-color:#FFFFFF;
+    margin:0px;
+    width:250px;
+    height:80px;
+    float:left;
+    margin-left:10px;
+}
+
+
+
+/*-------------------footer------------------------*/
+#footer{
+    width:1000px;
+    height:41px;
+    clear:both;
+    font-size:11px;
+    background-color:#f2efef;
+    border-top:1px #eeabbd dashed;
+}
+ul.footer_menu {
+    list-style:none; float:right; display:block; width:650px;
+    margin:0px; padding:9px 20px 0 0px;
+}
+
+ul.footer_menu li {
+    display:inline; font-size:11px;}
+
+a.nav_footer:link, a.nav_footer:visited {
+    display:block; float:left; padding:5px 6px 5px 10px; margin:0; 
+    text-decoration:none; color:#2F2626;}
+
+a.nav_footer:hover {
+    display:block; float:left; padding:5px 6px 5px 10px; margin:0;
+    text-decoration:underline; color:#2F2626;}
+
+a.nav_footer:active {
+    display:block; float:left; padding:5px 6px 5px 10px; margin:0;
+    text-decoration:none;  color:#2F2626;}
+
+#copyright{
+    float:left;
+    padding:0px;
+}
+
+
+
+.bottom_box{
+    width:1000px;
+    height:auto;
+    float:left;
+    padding-bottom:10px;
+}
+
+.top_bottom_box{
+    width:1000px;
+    height:10px;
+    float:left;
+    background:url(../images/center_box_bg.gif) repeat;
+}
+
+.center_bottom_box{
+    width:1000px;
+    height: auto;
+    float:left;
+    background:url(../images/center_box_bg.gif) repeat;
+    margin-top: 10px;
+}
+.bottom_bottom_box{
+    width:1000px;
+    height:10px;
+    float:left;
+    background:url(../images/center_box_bg.gif) repeat;
+}
+
+
+.menu-test{
+    background: #267cb2;
+    font-size: 11px;
+    padding: 0px !important;
+    float: right;
+    width: 740px!important;
+    border: 0px; 
+}
+.menu-test ul{
+    border: 0px;
+    background:#267cb2;
+}
+.ui-menu .ui-menuitem-text {
+    float: left;
+    color: white;
+}
+
+.ui-widget-content {
+    /*    border: 0px; */
+    color: #444444; 
+}
+
+.ui-corner-all {
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px; 
+    border-radius: 0px; 
+}
+
+.ui-menu .ui-menuitem-link {
+    display: block;
+    width: 92%;
+    outline: none;
+    text-decoration: none;
+    font-weight: 400;
+    border: solid 1px transparent;
+    float: left;
+    line-height: 24px !important;
+    padding: 0.3em;
+    cursor: pointer;
+    padding: 0px 17px 0px 17px!important;
+    height: 100%;
+}
+.ui-menu .ui-menu-parent .ui-menu-child {
+    width: 19.5em !important;
+}
+.ui-menubar .ui-menu-child .ui-menuitem-link {
+    width: 85% !important;
+}
+
+
+.ui-grid-bottom table {
+    background: #F3F3F3;
+}
+
+.ui-grid-bottom table  td{
+    text-align: center;
+}
+
+.widget {
+    background: none repeat scroll 0% 0% #FFF;
+    border: 1px solid #BCBDBD;
+    width: 220px;
+    border-radius: 5px;
+    margin: 20px 10px 0px 0px;
+}
+.box-header {
+    background: none repeat scroll 0% 0% #05619B;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    height: 30px;
+    line-height: 30px;
+    width: 100%;
+    color: #FFF;
+    font-weight: bold;
+    text-align: center;
+}
+.widget h2 {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #FFF;
+}
+.box-arround {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.box-arround .titlebox {
+    color: #055699;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+}
+.bold-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    padding-left: 4px;
+    border-bottom: 1px solid #ccc;
+    color: #0030FF;
+    text-transform: uppercase;
+}
+.box-arround .row-content {
+    background: url("../images/icon_title.gif") no-repeat scroll 6px 6px transparent;
+    margin-left: 5px;
+}
+
+.row-content a {
+    color: #000;
+    padding-left: 17px;
+    text-decoration: none;
+}
+
+#MenuTrai {
+    width: 230px;
+    float: left;
+}
+
+#noidung {
+    margin-top: 20px;
+}
+#noidung {
+    float: left;
+    width: 735px;
+    margin-left: 10px;
+    border: 1px solid rgb(204, 204, 204);
+}
+
+#LoginForm {	
+    background-color: #F0F0F0;
+    border-radius: 10px;
+    margin:  50px auto;
+    position:relative;
+    width:400px;
+}
+#LoginForm  h2{
+    padding: 20px;
+    font-size: 17px;
+    color: #1d353f;
+    font-weight:bold;
+    text-transform:capitalize;
+}
+
+#LoginForm  div[name="form"] {
+    margin-left: 20px;	
+}
+
+#LoginForm  div a{
+    color:#787878;		
+}
+
+#LoginForm  div input.textBox{
+    width:320px;
+    height:35px;
+    color:#787878;
+    font-weight:bold;
+    background-color:#eeeeee;
+    border-radius: 3px;
+    border: 1px solid  #cbcbcb;
+    padding-left: 30px;
+    margin-bottom: 20px;
+}
+
+#LoginForm  div input[type="submit"]{
+    background-color:#273e48;
+    width:62px;
+    height:30px;
+    color:#ffffff;
+    font-weight:bold;
+    background:url(../img/btnLogin.png);
+    border: none;
+    margin-bottom: 20px;
+}
+
+#LoginForm  div input[type="submit"]:hover{
+    cursor:pointer;
+}
+
+#LoginForm  div#bottom{
+
+    width: 400px;
+    height: 10px;
+    border-radius: 5px;
+    border-color:#F00;
+}
+
+#LoginForm div[name="name"]{
+    position:absolute;
+    top: 82px;
+    left: 30px;
+    background:url(../img/name.png);
+    height:14px;
+    width: 15px;
+}
+#LoginForm div[name="lock"]{
+    position:absolute;
+    left: 30px;
+    top: 137px;
+    background:url(../img/lock.png);
+    height:14px;
+    width: 13px;
+}
+
+#LoginForm div[name="Mail"]{
+    position:absolute;
+    left: 30px;
+    top: 137px;
+    background:url(../img/Mail.png);
+    height:14px;
+    width: 14px;
+}
+
+#BoxYourProperty .ListProperty li {
+    overflow: hidden;
+    border-top: 1px #ececec solid;
+    padding: 10px;
+    text-align: left;
+    vertical-align: bottom;
+}
+
+#BoxYourProperty   .ListProperty li {
+    overflow: hidden;
+    border-top: 1px #ececec solid;
+    padding: 10px;
+    text-align: left;
+    vertical-align: bottom;
+}
+#BoxYourProperty li.ItemsPostPro .col_imgages {
+    position: relative;
+    float: left;
+    width: 100px;
+    text-align: center;
+    margin-right: 10px;
+}
+#BoxYourProperty li.ItemsPostPro .col_description {
+    float: left;
+    width: 390px;
+    position: relative;
+}
+.Furniture {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-weight: bold;
+    color: #0099cc;
+}
+.Furniture h3 {
+    font-size: 14px;
+    color: #df3832;
+    text-align: right;
+}
+#BoxYourProperty .col_description .Title {
+    font-size: 14px;
+    width: 275px;
+    height: 32px;
+    font-weight: bold;
+}
+.LocationPro {
+    padding-top: 5px;
+    margin-top: 5px;
+    background: url(http://images.videonhadat.com.vn/users/linedot.png) repeat-x;
+}
+#BoxYourProperty ul.Date {
+    border: 1px #ddd solid;
+    clear: both;
+    overflow: hidden;
+    margin-top: 10px;
+    color: #555;
+    padding: 3px 0;
+    font-size: 11px;
+}
+#BoxYourProperty ul.Date li {
+    display: inline;
+    border-right: 1px #333 solid;
+    padding: 0 8px 0 8px;
+    _padding: 0 7px 0 8px;
+    margin: 0;
+    border-top: 0;
+}
+#BoxYourProperty ul.Date li span {
+    font-weight: bold;
+}
+#BoxYourProperty ul.Date li.clr_borright {
+    border-right: none;
+}
+.viewVersion {
+    margin-top: 10px;
+}
+.viewVersion a {
+    padding-right: 20px;
+    color: #919191;
+    text-decoration: underline;
+}
+#BoxYourProperty span.Districts {
+    font-size: 12px;
+    font-weight: bold;
+    /*                padding-left: 10px;*/
+    margin-top: 5px;
+}
+#BoxYourProperty li.ItemsPostPro .col_gadget {
+    float: left;
+    width: 150px;
+    margin: 0 0 10px 10px;
+    background-color: #efefef;
+    padding: 5px 10px;
+    _padding: 5px 10px 10px 10px;
+}
+#BoxYourProperty .col_gadget ul {
+    overflow: hidden;
+    padding-left: 5px;
+}
+#BoxYourProperty .col_gadget li {
+    float: left;
+    width: 120px;
+    padding-left: 10px;
+    margin: 4px 0;
+    border: 0;
+    padding: 0;
+    color: #686868;
+}
+#BoxYourProperty .col_gadget li span {
+    padding-left: 10px;
+}
+
+.ui-editor-toolbar{
+    height: 0px !important;
+}
+

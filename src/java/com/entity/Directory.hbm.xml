@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 4, 2015 2:41:12 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.entity.Directory" table="Directory" schema="dbo" catalog="MSH" optimistic-lock="version">
+        <id name="dirId" type="int">
+            <column name="dir_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="directoryType" class="com.entity.DirectoryType" fetch="select">
+            <column name="dir_directoryType" />
+        </many-to-one>
+        <property name="dirName" type="string">
+            <column name="dir_name" />
+        </property>
+        <property name="dirAddress" type="string">
+            <column name="dir_address" />
+        </property>
+        <property name="dirWebsite" type="string">
+            <column name="dir_website" />
+        </property>
+        <property name="dirDescription" type="string">
+            <column name="dir_description" />
+        </property>
+         <property name="dirImage" type="string">
+            <column name="dir_image" />
+        </property>
+         <property name="dirPhone" type="string">
+            <column name="dir_phone" />
+        </property>
+    </class>
+</hibernate-mapping>

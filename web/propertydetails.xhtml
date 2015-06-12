@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:metadata>
+        <f:viewParam name="propertyid" value="#{propertyDetailsBean.propertyId}"/>
+        <f:viewAction action="#{propertyDetailsBean.init}" />
+        <f:viewAction action="#{suggestedBean.init(propertyDetailsBean.propertyId)}"/>
+        <f:viewAction action="#{favoriteBean.init(propertyDetailsBean.propertyId)}"/>
+    </f:metadata>
+    <body>
+
+        <ui:composition template="./view/Template.xhtml">
+            <ui:define name="script">
+                <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"/>
+            </ui:define>
+
+            <ui:define name="title">
+                #{propertyDetailsBean.property.proTitle}
+            </ui:define>
+
+
+            <ui:define name="content">
+                <h:form id="frmFavaorite">
+                    <!-- end of column one -->
+                    <div class="column4">
+                        <div class="title">#{propertyDetailsBean.property.proTitle}</div>
+                    </div>
+                    <!-- end of column four -->
+                    <div class="column2" style="background-color:#f3f5f6; margin-left:5px;">
+                        <div class="big_pic">
+                            <p:graphicImage url="#{propertyDetailsBean.property.urlImageLarge}"  width="282" height="212" alt="" class="img_big_pic"/> 
+<!--                            <img src="{propertyDetailsBean.property.urlImageLarge}"  />-->
+                        </div>
+                        <!--                    <div class="pictures_thumbs">
+                                                <h3>Pictures available:</h3>
+                                                <a href="#">
+                                                    <img src="resources/images/thumb.jpg" width="104" height="78" border="0" alt="" class="img_thumb" /></a> 
+                                            </div>-->
+                    </div>
+                    <!-- end of column two -->
+                    <div class="column3">
+                        <div class="main_text_box">
+                            <h1>Description</h1>
+                            <h:outputText value="#{propertyDetailsBean.property.proContent}" escape="false"  />
+                                
+                            
+                        </div>
+                        <div class="title2">Details:</div>
+                        <div class="details_list">
+                            <ul>
+                                <li><span>Address:</span> #{propertyDetailsBean.property.proAddress}</li>
+                                <li><span>Type:</span> #{propertyDetailsBean.property.propertyType.protName}</li>
+                                <li><span>Exchange:</span> #{propertyDetailsBean.property.exchangeType.exName}</li>
+                                <li><span>Deposit:</span> <h:outputText value="#{propertyDetailsBean.property.proDeposit}">
+                                        <f:convertNumber pattern=" $#0.00" />
+                                    </h:outputText></li>
+                                <li><span>Price:</span> <h:outputText value="#{propertyDetailsBean.property.proPrice}">
+                                        <f:convertNumber pattern=" $#0.00" />
+                                    </h:outputText></li>
+                                <li><span>Area:</span> <h:outputText value="#{propertyDetailsBean.property.proArea}">
+                                        <f:convertNumber pattern=" #0.00" />
+                                    </h:outputText> (m<sup>2</sup>)</li>
+                                <li><span>Direction:</span> #{propertyDetailsBean.property.proDirection}</li>
+                                <li><span>Floors:</span> #{propertyDetailsBean.property.proNoOfFloors}</li>
+                                <li><span>Province:</span> #{propertyDetailsBean.property.district.province.provName} </li>
+                                <li><span>District:</span> #{propertyDetailsBean.property.district.distName} </li>
+                                <li><span>Bedrooms:</span> #{propertyDetailsBean.property.proNoOfBebrooms}</li>
+                                <li><span>Bathrooms:</span> #{propertyDetailsBean.property.proNoOfBathrooms}</li>
+                                <li><span>Negotiate:</span> 
+                                    <ui:fragment rendered="#{propertyDetailsBean.property.proNegotiate==true}">
+                                        Yes
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{propertyDetailsBean.property.proNegotiate==false}">
+                                        No
+                                    </ui:fragment>
+                                </li>
+                                <li><span>Status:</span>
+                                    <ui:fragment rendered="#{propertyDetailsBean.property.proStatus==0}">
+                                        Trading
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{propertyDetailsBean.property.proStatus==1}">
+                                        Stop Trading
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{propertyDetailsBean.property.proStatus==2}">
+                                        Deactivated
+                                    </ui:fragment>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="title2">Contact information</div>
+                        <div class="details_list">
+                            <ul>
+                                <li><span>Property owner:</span> #{propertyDetailsBean.property.proContactName} </li>
+                                <li><span>Phone:</span> #{propertyDetailsBean.property.proContactPhone}</li>
+                                <li><span>Address:</span> #{propertyDetailsBean.property.proContactAddress} </li>
+                            </ul>
+                        </div>
+                        <div style="float:left;">
+                            <div>
+
+                                <p:growl id="msg" autoUpdate="true" life="1000"/>
+                                <h:inputHidden value="#{favoriteBean.propertyId}" />
+                                <ui:fragment rendered="#{favoriteBean.checkHaveFavorite()==false}">
+                                    <p:commandButton id="btnFavorite" value="I'm Interested"
+                                                     ajax="true"
+                                                     actionListener="#{favoriteBean.addNewFavorite}"
+                                                     oncomplete="handleRequest(xhr, status, args)">
+                                    </p:commandButton>
+                                </ui:fragment>
+
+                                <script type="text/javascript">
+                                    function handleRequest(xhr, status, args) {
+                                        if (args.isOK) {
+                                            $("#frmFavaorite\\:btnFavorite").css("display", "none");
+                                        }
+                                    }
+
+                                </script>
+                            </div>
+                        </div>
+                        <!-- end of column three -->
+                    </div>
+
+                    <ui:fragment rendered="#{(propertyDetailsBean.property.proPosition !=null) and (propertyDetailsBean.property.proPosition !='')}">
+                       
+                        <div class="column5" style="width: 720px;height: 350px;margin-bottom: 10px;float: right;">
+                            <div class="title2" style="margin-bottom: 10px;margin-left: 0;width: 700px;">Location details:</div>
+                            <p:gmap 
+                                id="geoGmap" widgetVar="geoMap"  style="width:100%;height:95%"
+                                zoom="15" type="ROADMAP" model="#{makersViewBean.getMakers(propertyDetailsBean.property.lat, propertyDetailsBean.property.lng)}"
+                                center="#{propertyDetailsBean.property.proPosition}" />
+                        </div>
+                    </ui:fragment>
+
+
+                    <div class="column5">
+                        <div class="title">Suggested Offers</div>
+                        <p:dataGrid columns="3" value="#{suggestedBean.listSuggested}" var="property">
+                            <div class="offer_box_wide5"> 
+                                <a href="propertydetails.xhtml?propertyid=#{property.proId}">
+                                    <img src="#{property.urlImage}" width="130" height="98" class="img_left" alt="" border="0" />
+                                </a>
+                                <div class="offer_info">
+                                    <a href="propertydetails.xhtml?propertyid=#{property.proId}"> 
+                                        <span class="titleoffer">#{property.getTitleSub(55)}</span>
+                                    </a>
+                                    <p class="offer">#{property.getContentSub(20)} </p>
+                                    <div class="more"><a href="propertydetails.xhtml?propertyid=#{property.proId}">...more</a></div>
+                                </div>
+                            </div>
+                        </p:dataGrid>
+                    </div>
+
+                    <!-- end of main_content -->
+                    <script type="text/javascript">
+                        $(".titleoffer").text(function (index, currentText) {
+                            if (currentText.length > 55) {
+                                return currentText.substr(0, 55) + ' ....';
+                            } else {
+                                return currentText;
+                            }
+
+                        });
+                        $(".offer").text(function (index, currentText) {
+                            if (currentText.length > 20) {
+                                return currentText.substr(0, 20) + ' ....';
+                            } else {
+                                return currentText;
+                            }
+
+                        });
+                    </script>
+                </h:form>
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

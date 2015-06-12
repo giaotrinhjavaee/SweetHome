@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 4, 2015 2:41:12 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.entity.FavoriteProperty" table="FavoriteProperty" schema="dbo" catalog="MSH" optimistic-lock="version">
+        <id name="favId" type="int">
+            <column name="fav_id" />
+            <generator class="identity" />
+        </id>
+        <property name="favCreateDate" type="timestamp">
+            <column name="fav_createDate" length="23" />
+        </property>
+        <many-to-one name="property" class="com.entity.Property" fetch="select">
+            <column name="fav_property" />
+        </many-to-one>
+        <many-to-one name="users" class="com.entity.Users" fetch="select">
+            <column name="fav_user" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

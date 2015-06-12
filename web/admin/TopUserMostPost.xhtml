@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../view/TemplateAdmin.xhtml">
+
+            <ui:define name="title">
+                Top user have most post
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <p:panelGrid columns="1" style="width: 100%">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="1">Top user have most post</p:column>
+                            </p:row>
+                        </f:facet>
+                        <p:row>
+                            <p:messages id="msgs"  autoUpdate="true" closable="true" />
+                            <fieldset id="filter-bar" >
+                                <div style="float: right">
+                                    <p:selectOneMenu id="searchstatus" value="#{statisticBean.selectTopUserMostPost}"  style="width:125px;margin: 5px 5px 5px 0">
+                                        <f:selectItem itemLabel="Select top" itemValue="0" />
+                                        <f:selectItem itemLabel="10" itemValue="10" />
+                                        <f:selectItem itemLabel="20" itemValue="20" />
+                                        <f:selectItem itemLabel="50" itemValue="50" />
+                                        <f:selectItem itemLabel="100" itemValue="100" />
+                                        <p:ajax update="basicDT" />
+                                    </p:selectOneMenu>
+                                </div>
+                            </fieldset>
+                            <p:dataTable id="basicDT" var="property" value="#{statisticBean.topUserMostPost}" 
+                                         rows="10" paginator="true" paginatorPosition="bottom"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15" >
+                                <p:column headerText="User" style="text-align: center">
+                                    <h:inputHidden value="#{statisticBean.selectTopUserMostPost}" />
+                                    <h:outputText value="#{property[0].UUsername}" />
+                                </p:column>
+                                <p:column headerText="Fullname">
+                                    <h:outputText value="#{property[0].UFullname}" /> 
+                                </p:column>
+                                <p:column headerText="Phone">
+                                    <h:outputText value="#{property[0].UPhone}" />
+                                </p:column>
+                                <p:column headerText="Email">
+                                    <h:outputText value="#{property[0].UEmail}" />
+                                </p:column>
+                                <p:column headerText="No of posting">
+                                    <h:outputText value="#{property[1]}">
+                                        <f:convertNumber type="number" />
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable>
+                        </p:row>
+                    </p:panelGrid>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

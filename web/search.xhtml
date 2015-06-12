@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <f:metadata>
+        <f:viewParam name="cat" value="#{searchBean.propertyType}" />
+        <f:viewParam name="city" value="#{searchBean.provinceId}" />
+        <f:viewParam name="district" value="#{searchBean.districtId}" />
+        <f:viewParam name="pricemin" value="#{searchBean.priceMin}" />
+        <f:viewParam name="pricemax" value="#{searchBean.priceMax}" />
+        <f:viewParam name="areamin" value="#{searchBean.areaMin}" />
+        <f:viewParam name="areamax" value="#{searchBean.areaMax}" />
+        <f:viewParam name="exchange" value="#{searchBean.exchangeType}" />
+        <f:viewAction action="#{searchBean.init}"/>
+    </f:metadata>
+    <body>
+
+        <ui:composition template="./view/Template.xhtml">
+            <ui:define name="title">
+                Real estate | Buy, sell, rent out real estate
+            </ui:define>
+
+
+
+
+            <ui:define name="content">
+                <h:form>
+                    <div class="column4">
+                        <div class="title" style="float:left;">
+                            <div style="float:left;">Searching Homes</div>
+                        </div>
+                        <div id="grid_paginator_top" class="ui-paginator ui-paginator-top ui-corner-top" role="navigation">
+                            <span class="ui-paginator-current"></span></div>
+                        <p:dataGrid var="property" value="#{searchBean.generateListSearch}" columns="1"
+                                    rows="5" paginator="true" id="grid"
+                                    paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    rowsPerPageTemplate="5,10,15">
+                            <h:inputHidden id="cat" value="#{searchBean.propertyType}" />
+                            <h:inputHidden id="city" value="#{searchBean.provinceId}" />
+                            <h:inputHidden id="district" value="#{searchBean.districtId}" />
+                            <h:inputHidden id="pricemin" value="#{searchBean.priceMin}" />
+                            <h:inputHidden id="pricemax" value="#{searchBean.priceMax}" />
+                            <h:inputHidden id="areamin" value="#{searchBean.areaMin}" />
+                            <h:inputHidden id="areamax" value="#{searchBean.areaMax}" />
+                            <h:inputHidden id="exchange" value="#{searchBean.exchangeType}" />
+                            <div class="offer_box_wide_style1"> 
+                                <a href="propertydetails.xhtml?propertyid=#{property.proId}">
+                                    <p:graphicImage width="130" height="110" styleClass="img_left" value="#{property.urlImage}" />
+                                </a>
+                                <div class="offer_info"> 
+                                    <a href="propertydetails.xhtml?propertyid=#{property.proId}">
+                                        <span>#{property.proTitle}</span>
+                                    </a>
+                                    <p class="offer">#{property.getContentSub(220)}</p>
+                                    <p class="offer"><strong>Value: </strong><h:outputText value="#{property.proPrice}">
+                                            <f:convertNumber type="currency" />
+                                        </h:outputText></p>
+                                    <p class="offer"><strong>Area: </strong><h:outputText value="#{property.proArea}">
+                                            <f:convertNumber type="number" />
+                                        </h:outputText> (m<sup>2</sup>)</p>
+                                    <p class="offer"><strong>Address: </strong>#{property.proAddress}</p>
+                                    <p class="offer"><strong>Date post: </strong><h:outputText value="#{property.proPublishDate}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                        </h:outputText></p>
+                                    <div class="more"><a href="propertydetails.xhtml?propertyid=#{property.proId}">...more</a></div>
+                                </div>
+                            </div>
+                        </p:dataGrid>
+                    </div>
+                    <script type="text/javascript">
+                       
+                    </script>
+                </h:form>
+            </ui:define>
+
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="MSH" match-schema="dbo"/>
+  <table-filter match-name="FavoriteProperty"/>
+  <table-filter match-name="FAQS"/>
+  <table-filter match-name="Province"/>
+  <table-filter match-name="PropertyType"/>
+  <table-filter match-name="Directory"/>
+  <table-filter match-name="DirectoryType"/>
+  <table-filter match-name="ExchangeType"/>
+  <table-filter match-name="Users"/>
+  <table-filter match-name="District"/>
+  <table-filter match-name="Feedback"/>
+  <table-filter match-name="Property"/>
+</hibernate-reverse-engineering>

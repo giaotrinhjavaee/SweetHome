@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:metadata>
+        <f:viewParam name="searchkey" value="#{feedbackBean.searchkey}"/>
+    </f:metadata>
+    <body>
+
+        <ui:composition template="./../view/TemplateAdmin.xhtml">
+            <ui:define name="title">
+                Feedback management
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <p:inputText id="searchtext" value="#{feedbackBean.searchkey}" />
+                    <p:commandButton  value="Search" action="feedback?faces-redirect=true&amp;includeViewParams=true;" />
+                </h:form>
+
+                <h:form id="formView">
+                    <p:messages id="msgs"  autoUpdate="true" closable="true" />
+
+                    <p:dataTable id="basicDT" var="feed" value="#{feedbackBean.allFeedback}"
+                                 rows="10" paginator="true" paginatorPosition="bottom"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+
+                        <f:facet name="header">
+                            Feedback manager
+                        </f:facet>
+
+                        <p:column headerText="Name">
+                            <h:outputText value="#{feed.feedCustomerName}" />
+                        </p:column>
+                        <p:column headerText="Email">
+                            <h:outputText value="#{feed.feedEmail}" />
+                        </p:column>
+                        <p:column headerText="Phome">
+                            <h:outputText value="#{feed.feedPhone}" />
+                        </p:column>
+
+                        <p:column headerText="Date">
+                            <h:outputText value="#{feed.feedDate}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"  />
+                            </h:outputText>
+                        </p:column>
+                        <p:column style="width:128px;text-align: center">
+                            <p:commandButton id="btnUpdate" update=":formUpdate" oncomplete="PF('dlg').show()" icon="ui-icon-document-b" title="View">
+                                <f:setPropertyActionListener value="#{feed}" target="#{feedbackBean.feedbackSelected}" />
+                            </p:commandButton>
+                            <p:commandButton id="btnDelete" update=":formDel" oncomplete="PF('dlg').show()" icon="ui-icon-trash" title="Delete">
+                                <f:setPropertyActionListener value="#{feed}" target="#{feedbackBean.feedbackSelected}" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+
+                <h:form id="formUpdate">
+                    <p:dialog width="500"
+                              header="Feedback information" widgetVar="dlg" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="provinceUpdate" style="text-align:center;">
+                            <p:panelGrid id="gird" columns="2" rendered="#{not empty feedbackBean.feedbackSelected}" 
+                                         style="border: 0;width: 100%;"  columnClasses="label,value">
+
+                                <h:outputText value="Name" style="font-weight: bold" />
+                                <h:outputText value="#{feedbackBean.feedbackSelected.feedCustomerName}" />
+
+                                <h:outputText value="Email" />
+                                <h:outputText value="#{feedbackBean.feedbackSelected.feedEmail}" />
+
+                                <h:outputText value="Phone" />
+                                <h:outputText value="#{feedbackBean.feedbackSelected.feedPhone}" />
+
+                                <h:outputText value="Message" />
+                                <p:scrollPanel style="border: 0;width: 380px;max-height: 200px">
+                                    <h:outputText style="border: 0;width: 380px;max-height: 200px" escape="false"  value="#{feedbackBean.feedbackSelected.feedMessage}" />
+                                </p:scrollPanel>
+
+
+                                <h:outputText value="Date" />
+                                <h:outputText value="#{feedbackBean.feedbackSelected.feedDate}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"  />
+                                </h:outputText>
+
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formDel">
+                    <p:outputPanel  id="provinceDel" style="text-align:center;">
+                        <p:confirmDialog rendered="#{not empty feedbackBean.feedbackSelected}" 
+                                         widgetVar="dlg"
+                                         message="Are you sure to delete this feedback?" >
+                            <p:commandButton id="confirm" value="Yes" 
+                                             update=":formView:, :formView:msgs" oncomplete="PF('dlg').hide()"
+                                             actionListener="#{feedbackBean.deleteFeedback}"
+                                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton id="cancel" value="No" type="button" onclick="PF('dlg').hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            <h:inputHidden value="#{feedbackBean.feedbackSelected.feedId}"/>
+                        </p:confirmDialog>
+                    </p:outputPanel>
+                </h:form>
+
+
+
+                <script type="text/javascript">
+                    function handleRequest(xhr, status, args) {
+                        if (args.validationFailed) {
+                            //PF('dlg').jq.effect("shake", {times: 5}, 100);
+                        }
+                        else {
+
+                            PF('dlg').hide();
+
+                        }
+                    }
+                </script>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

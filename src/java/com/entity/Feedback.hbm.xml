@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 4, 2015 2:41:12 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.entity.Feedback" table="Feedback" schema="dbo" catalog="MSH" optimistic-lock="version">
+        <id name="feedId" type="int">
+            <column name="feed_id" />
+            <generator class="identity" />
+        </id>
+        <property name="feedCustomerName" type="string">
+            <column name="feed_CustomerName" />
+        </property>
+        <property name="feedEmail" type="string">
+            <column name="feed_email" />
+        </property>
+        <property name="feedPhone" type="string">
+            <column name="feed_phone" />
+        </property>
+        <property name="feedMessage" type="string">
+            <column name="feed_message" />
+        </property>
+        <property name="feedDate" type="timestamp">
+            <column name="feed_date" length="23" />
+        </property>
+    </class>
+</hibernate-mapping>

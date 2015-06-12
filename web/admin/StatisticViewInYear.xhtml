@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../view/TemplateAdmin.xhtml">
+
+            <ui:define name="title">
+                Statistic view of post in year
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <p:panelGrid columns="1" style="width: 100%">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column colspan="1">Statistic number of post in year</p:column>
+                            </p:row>
+                        </f:facet>
+
+                        <p:selectOneMenu id="searchstatus" value="#{statisticBean.yearStatisticViewInYear}"  style="width:125px;margin: 5px 5px 5px 0">
+                            <f:selectItem itemLabel="Select year" itemValue="0" />
+                            <f:selectItem itemLabel="2014" itemValue="114" />
+                            <f:selectItem itemLabel="2015" itemValue="115" />
+                            <f:selectItem itemLabel="2016" itemValue="116" />
+                            <f:selectItem itemLabel="2017" itemValue="117" />
+                            <f:selectItem itemLabel="2018" itemValue="118" />
+                            <f:selectItem itemLabel="2019" itemValue="119" />
+                            <f:selectItem itemLabel="2020" itemValue="120" />
+                            <p:ajax update="basicDT" />
+                        </p:selectOneMenu>
+
+                        <p:row>
+                            <p:chart id="basicDT" type="line" model="#{statisticBean.statisticViewInYear}" style="height:600px;"/>
+                        </p:row>
+                    </p:panelGrid>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,256 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <f:metadata>
+        <f:viewParam name="id" value="#{propertyBean.id}" />
+        <f:viewAction action="#{propertyBean.init}" />
+    </f:metadata>
+
+
+    <body>
+
+        <ui:composition template="./../view/TemplateAdmin.xhtml">
+            <ui:define name="script">
+                <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"/>
+                <h:outputScript name="./js/gmap.js"/>
+            </ui:define>   
+            <ui:define name="title">
+                #{propertyBean.title}
+            </ui:define>
+            <ui:define name="content">
+                <h:form id="frm" enctype="multipart/form-data"  >
+                    <!--                    <p:growl id="msgs"  autoUpdate="true" />-->
+                    <p:panel  header="Input property information to sell or rent" > 
+                        <h:panelGrid columns="2" cellpadding="10px" cellspacing="15px">  
+
+                            <h:outputText style="font-weight: bold" value="Title(*) " />
+                            <p:inputText id="title" maxlength="100" style="width: 500px" value="#{propertyBean.property.proTitle}" required="true" requiredMessage="Required title field"/>
+
+                            <h:outputText style="font-weight: bold" value="Content(*) " />
+                            <h:panelGrid columns="1" cellpadding="3">
+                                <p:editor id="content" style="width: 500px"  controls=""
+                                          value="#{propertyBean.property.proContent}" 
+                                          required="true" validatorMessage="Required content field"
+                                          requiredMessage="Required content field">
+                                    <f:validateLength minimum="5" />
+                                </p:editor>
+                            </h:panelGrid>
+
+                            <h:outputText style="font-weight: bold" value="Publish(*) " />
+                            <p:selectOneMenu id="publish" value="#{propertyBean.property.proPublish}" required="true" requiredMessage="Required publish field"  style="width:125px;margin: 5px 5px 5px 0">
+                                <f:selectItem itemLabel="--Select publish--" itemValue="" />
+                                <f:selectItem itemLabel="Publish" itemValue="true" />
+                                <f:selectItem itemLabel="Unpublish" itemValue="false" />
+                                <p:ajax update="txtPublish"/>
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Main image" />
+                            <p:fileUpload value="#{propertyBean.fileMain}" mode="simple"
+                                          allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+
+                            <h:inputHidden />
+                            <ui:fragment rendered="#{!(param['id'] eq null)}" >
+                                <p:dataGrid columns="6" value="#{propertyBean.listImages}" var="image">  
+                                    <p:graphicImage height="73" width="110" value="./../resources/upload/#{image}" />
+                                </p:dataGrid>
+                            </ui:fragment>
+                        </h:panelGrid>
+
+                    </p:panel>
+                    <p:spacer height="15px"/>
+                    <p:fieldset legend="Basic information" toggleable="true" toggleSpeed="500" style="text-align: left;">  
+                        <h:panelGrid columns="4" cellpadding="10px" cellspacing="15px">  
+
+
+                            <h:outputText style="font-weight: bold" value="Type of property(*) " />
+                            <p:selectOneMenu id="typOfProperty" style="width: 211px" value="#{propertyBean.property.propertyType.protId}" required="true" requiredMessage="Required type of property field" >  
+                                <f:selectItem itemLabel="--Select type--" itemValue="" />  
+                                <f:selectItems value="#{propertyBean.allPropertyType}" var="prot" itemLabel="#{prot.protName}" itemValue="#{prot.protId}"/>  
+                            </p:selectOneMenu>
+                            <h:outputText style="font-weight: bold" value="Type of exchange(*) " />
+                            <p:selectOneMenu id="typeOfExchange" style="width: 211px" value="#{propertyBean.property.exchangeType.exId}" required="true" requiredMessage="Required type of exchange field" >
+                                <f:selectItem itemLabel="Select exchange" itemValue="" />
+                                <f:selectItem itemLabel="For sale" itemValue="1" />
+                                <f:selectItem itemLabel="For rent" itemValue="2" />
+                            </p:selectOneMenu>
+
+                            <h:outputText style="font-weight: bold" value="Area(m2)(*) " />
+                            <p:inputText value="#{propertyBean.property.proArea}" id="area" required="true" requiredMessage="Required area field" >
+                                <f:convertNumber type="number" />
+                                <p:ajax update="area"/>
+                            </p:inputText>
+
+                            <h:outputText style="font-weight: bold" value="Value(*) " />
+                            <p:inputText value="#{propertyBean.property.proPrice}" id="txtValue" required="true" requiredMessage="Required value field" >
+                                <f:convertNumber type="currency"/>
+                                <p:ajax update="txtValue"/>
+                            </p:inputText>
+
+                            <h:outputText value="Negotiate " />
+                            <p:selectBooleanCheckbox value="#{propertyBean.property.proNegotiate}" />
+
+                            <h:outputText value="Direction: " />
+                            <p:selectOneMenu id="txtDirection" style="width: 211px" value="#{propertyBean.property.proDirection}">  
+                                <f:selectItem itemLabel="--Select direction--" />  
+                                <f:selectItem itemLabel="East" itemValue="East"/>  
+                                <f:selectItem itemLabel="West" itemValue="West"/>  
+                                <f:selectItem itemLabel="North" itemValue="North"/>  
+                                <f:selectItem itemLabel="South" itemValue="South"/>  
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Deposit " />
+                            <p:inputText value="#{propertyBean.property.proDeposit}" id="txtDeposit">
+                                <f:convertNumber type="currency"/>
+                                <p:ajax update="txtDeposit"/>
+                            </p:inputText>
+
+                            <h:outputText value="Num of bathrooms: " />
+                            <p:selectOneMenu id="noOfBathrooms" style="width: 211px" value="#{propertyBean.property.proNoOfBathrooms}">  
+                                <f:selectItem itemLabel="--Select--" itemValue="" />  
+                                <f:selectItem itemLabel="1" itemValue="1"/>  
+                                <f:selectItem itemLabel="2" itemValue="2"/>  
+                                <f:selectItem itemLabel="3" itemValue="3"/>  
+                                <f:selectItem itemLabel="4" itemValue="4"/>  
+                                <f:selectItem itemLabel="5" itemValue="5"/>  
+                                <f:selectItem itemLabel="6" itemValue="6"/>  
+                                <f:selectItem itemLabel="7" itemValue="7"/>  
+                                <f:selectItem itemLabel="8" itemValue="8"/>  
+                                <f:selectItem itemLabel="9" itemValue="9"/>  
+                                <f:selectItem itemLabel="10" itemValue="10"/>
+                                <f:selectItem itemLabel="11" itemValue="11"/>  
+                                <f:selectItem itemLabel="12" itemValue="12"/>  
+                                <f:selectItem itemLabel="13" itemValue="13"/>  
+                                <f:selectItem itemLabel="14" itemValue="14"/>  
+                                <f:selectItem itemLabel="15" itemValue="15"/>  
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Num of bedrooms: " />
+                            <p:selectOneMenu id="txtnoOfBedrooms" style="width: 211px" value="#{propertyBean.property.proNoOfBebrooms}" >  
+                                <f:selectItem itemLabel="--Select--" itemValue="" />  
+                                <f:selectItem itemLabel="1" itemValue="1"/>  
+                                <f:selectItem itemLabel="2" itemValue="2"/>  
+                                <f:selectItem itemLabel="3" itemValue="3"/>  
+                                <f:selectItem itemLabel="4" itemValue="4"/>  
+                                <f:selectItem itemLabel="5" itemValue="5"/>  
+                                <f:selectItem itemLabel="6" itemValue="6"/>  
+                                <f:selectItem itemLabel="7" itemValue="7"/>  
+                                <f:selectItem itemLabel="8" itemValue="8"/>  
+                                <f:selectItem itemLabel="9" itemValue="9"/>  
+                                <f:selectItem itemLabel="10" itemValue="10"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" cellspacing="15px" style="font-size: 13px;">
+                            <h:outputText value="Furniture " />
+                            <p:inputTextarea id="txtFurniture" maxlength="2048" value="#{propertyBean.property.proFurniture}" rows="5" cols="80"/>
+                        </h:panelGrid>
+                    </p:fieldset>
+
+                    <p:spacer height="15px"/>
+                    <p:fieldset legend="Location information" toggleable="true" toggleSpeed="500" style="text-align: left;">  
+                        <h:panelGrid columns="4" cellpadding="10" cellspacing="15px">  
+                            <h:outputText value="Province" />
+                            <p:selectOneMenu id="city" style="width: 211px" value="#{districtViewBean.provinceSelected}"  >  
+                                <f:selectItem itemLabel="Select City" itemValue="" />  
+                                <f:selectItems value="#{districtViewBean.listProvince}" var="prov" itemLabel="#{prov.provName}" itemValue="#{prov.provId}" />  
+                                <p:ajax update="txtDistrict" listener="#{districtViewBean.handleProvinceChange}" />  
+                            </p:selectOneMenu>
+
+                            <h:outputText style="font-weight: bold" value="District(*) " />
+                            <p:selectOneMenu id="txtDistrict" style="width: 211px" value="#{propertyBean.property.district.distId}" required="true" requiredMessage="Required district field" >  
+                                <f:selectItem itemLabel="--Select district--" itemValue="" />  
+                                <f:selectItems value="#{districtViewBean.listDistrict}" var="dist" itemLabel="#{dist.distName}" itemValue="#{dist.distId}" />  
+                            </p:selectOneMenu>
+
+                            <h:outputText style="font-weight: bold" value="Address(*) " />
+                            <p:inputText value="#{propertyBean.property.proAddress}" maxlength="50" id="txtAddress" required="true" requiredMessage="Required address field" />
+
+                            <h:outputText value="Num of floor: " />
+                            <p:selectOneMenu id="txtnoOfFloor" style="width: 211px" value="#{propertyBean.property.proNoOfFloors}" >  
+                                <f:selectItem itemLabel="--Select--" itemValue="" />  
+                                <f:selectItem itemLabel="1" itemValue="1"/>  
+                                <f:selectItem itemLabel="2" itemValue="2"/>  
+                                <f:selectItem itemLabel="3" itemValue="3"/>  
+                                <f:selectItem itemLabel="4" itemValue="4"/>  
+                                <f:selectItem itemLabel="5" itemValue="5"/>  
+                                <f:selectItem itemLabel="6" itemValue="6"/>  
+                                <f:selectItem itemLabel="7" itemValue="7"/>  
+                                <f:selectItem itemLabel="8" itemValue="8"/>  
+                                <f:selectItem itemLabel="9" itemValue="9"/>  
+                                <f:selectItem itemLabel="10" itemValue="10"/>
+                                <f:selectItem itemLabel="11" itemValue="11"/>  
+                                <f:selectItem itemLabel="12" itemValue="12"/>  
+                                <f:selectItem itemLabel="13" itemValue="13"/>  
+                                <f:selectItem itemLabel="14" itemValue="14"/>  
+                                <f:selectItem itemLabel="15" itemValue="15"/>  
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </p:fieldset>
+
+                    <p:spacer height="15px"/>
+
+                    <p:fieldset legend="Contact information" toggleable="true" toggleSpeed="500" style="text-align: left;">  
+                        <h:panelGrid columns="2" cellpadding="10" cellspacing="15px" style="vertical-align: top;">  
+                            <h:outputText style="font-weight: bold" value="Contact Name(*) " />
+                            <p:inputText value="#{propertyBean.property.proContactName}" maxlength="50" id="txtContactName" required="true" requiredMessage="Required contact name field" />
+                            <h:outputText style="font-weight: bold" value="Telephone(*) " />
+                            <p:inputText value="#{propertyBean.property.proContactPhone}" maxlength="20" id="txtContactTel" required="true" requiredMessage="Required contact phone field" />
+                            <h:outputText value="Address: " />
+                            <p:inputText value="#{propertyBean.property.proContactAddress}" maxlength="50" id="txtContactAddress" />
+
+                        </h:panelGrid>
+                    </p:fieldset>
+                    <p:spacer height="15px"/>
+                    <p:fieldset legend="Location" toggleable="true" toggleSpeed="500" style="text-align: left;">  
+                        <h:panelGrid columns="3" cellpadding="10" cellspacing="15px" style="vertical-align: top;">  
+                            <h:outputText value="Find address" />
+                            <p:inputText id="findaddress" />
+                            <p:commandButton value="Find" onclick="LayLatLng1();" />
+                        </h:panelGrid>
+                        <div id="gmap" style="width: 870px; height: 300px;"></div>
+                        <h:inputHidden id="resultgmap" value="#{propertyBean.property.proPosition}" />
+                    </p:fieldset>
+                    <script type="text/javascript">
+                        loadMapCp('admin', '', '', '');
+                    </script>
+                    <ui:fragment rendered="#{(param['id']!=null) and (propertyBean.property.proPosition!=null and propertyBean.property.proPosition != '') }">
+                        <script type="text/javascript">
+                            SetMap(#{propertyBean.property.lat}, #{propertyBean.property.lng}, 9);
+                        </script>
+                    </ui:fragment>
+
+                    <p:spacer height="30px"/>
+
+
+                    <h:inputHidden value="#{propertyBean.property.proId}" />
+                    <h:inputHidden value="#{propertyBean.property.proStatus}" />
+                    <h:inputHidden value="#{propertyBean.property.proHit}" />
+                    <h:inputHidden value="#{propertyBean.property.proImage}" />
+                    <h:inputHidden value="#{propertyBean.createDate}" />
+                    <h:inputHidden value="#{propertyBean.createUser}" />
+                    <h:inputHidden id="txtPublish" value="#{propertyBean.property.proPublish}" />
+
+
+                    <p:commandButton  id="btnCreateEstate" value="Submit"
+                                      oncomplete="handleRequest(xhr, status, args)" 
+                                      ajax="false" update="msgs" actionListener="#{propertyBean.addNewProperty}" > 
+                    </p:commandButton>
+                </h:form>
+                <script type="text/javascript">
+                    function handleRequest(xhr, status, args) {
+                        if (!args.validationFailed || args.isAdd) {
+                            location.href = args.url;
+                        }
+                    }
+                </script>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

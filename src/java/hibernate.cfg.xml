@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+    <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;databaseName=MSH</property>
+    <property name="hibernate.connection.username">sa</property>
+    <property name="hibernate.connection.password">sql2008</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <mapping resource="com/entity/PropertyType.hbm.xml"/>
+    <mapping resource="com/entity/Province.hbm.xml"/>
+    <mapping resource="com/entity/ExchangeType.hbm.xml"/>
+    <mapping resource="com/entity/Directory.hbm.xml"/>
+    <mapping resource="com/entity/Users.hbm.xml"/>
+    <mapping resource="com/entity/Faqs.hbm.xml"/>
+    <mapping resource="com/entity/District.hbm.xml"/>
+    <mapping resource="com/entity/Feedback.hbm.xml"/>
+    <mapping resource="com/entity/DirectoryType.hbm.xml"/>
+    <mapping resource="com/entity/Property.hbm.xml"/>
+    <mapping resource="com/entity/FavoriteProperty.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

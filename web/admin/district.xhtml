@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:metadata>
+        <f:viewParam name="searchkey" value="#{districtBean.disSearch}"/>
+    </f:metadata>
+    <body>
+
+        <ui:composition template="./../view/TemplateAdmin.xhtml">
+            <ui:define name="title">
+                District management
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:form>
+                    <h:panelGrid columns="3">
+                        <p:commandButton update=":formCreate" oncomplete="PF('dlg').show()" icon="ui-icon-plus" title="Add" value="Add"></p:commandButton>
+                        <p:inputText id="searchtext" value="#{districtBean.disSearch}" />
+                        <p:commandButton alt="right" value="Search" action="district?faces-redirect=true&amp;includeViewParams=true;" />
+                    </h:panelGrid>
+                </h:form>
+
+
+                <h:form id="formView">
+                    <p:messages id="msgs"  autoUpdate="true" closable="true" />
+
+                    <p:dataTable id="basicDT" var="district" value="#{districtBean.allDistrict}"
+                                 rows="10" paginator="true" paginatorPosition="bottom"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}
+                                 {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 >
+                        <f:facet name="header">
+                            District manager
+                        </f:facet>
+                        
+                        <p:column headerText="Name">
+                            <h:outputText value="#{district.distName}" />
+                        </p:column>
+                        <p:column headerText="Province" >
+                            <h:outputText value="#{district.province.provName}" />
+                        </p:column>
+                        <p:column headerText="Description">
+                            <h:outputText value="#{district.distDescription}" />
+                        </p:column>
+
+                        <p:column style="width:128px;text-align: center">
+                            <p:commandButton id="btnUpdate" update=":formUpdate" oncomplete="PF('dlg').show()" icon="ui-icon-document-b" title="View">
+                                <f:setPropertyActionListener value="#{district}" target="#{districtBean.districtSelected}" />
+                            </p:commandButton>
+                            <p:commandButton id="btnDelete" update=":formDel" oncomplete="PF('dlg').show()" icon="ui-icon-trash" title="Delete">
+                                <f:setPropertyActionListener value="#{district}" target="#{districtBean.districtSelected}" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+                <h:form id="formCreate">
+
+                    <p:dialog  header="District Add" widgetVar="dlg" 
+                               modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel  id="districtCreate" style="text-align:center;">
+                            <h:panelGrid id="gird" columns="2" cellpadding="0" >
+                                <h:outputText value="Province" />
+                                <p:selectOneMenu id="provinceadd" value="#{districtBean.districtSelected.province.provId}" required="true" requiredMessage="Required type of property field " style="width:125px;margin: 10px 85px 5px 0;"  >  
+                                    <f:selectItems value="#{districtBean.allProvince}" var="provadd" itemLabel="#{provadd.provName}" itemValue="#{provadd.provId}"/>  
+                                </p:selectOneMenu>
+                                <h:outputText value="Name" />
+                                <p:inputText id="name" value="#{districtBean.districtSelected.distName}" required="true" >
+                                </p:inputText>
+                                <p:message for="name" />
+                                <h:outputText value="#{districtBean.districtSelected.distName}" />
+                                <h:outputText value="Description" />
+                                <p:inputText value="#{districtBean.districtSelected.distDescription}" required="false" label="districtDesc" />
+                                <f:facet name="footer">
+                                    <p:spacer height="25"/>
+                                    <p:commandButton id="btnAdd" value="Add" oncomplete="handleRequest(xhr, status, args)" 
+                                                     ajax="true" validateClient="true"
+                                                     update="gird, :formView:, :formView:msgs" actionListener="#{districtBean.addDistrict}"
+                                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Cancel" type="button" update=":formCreate" onclick="PF('dlg').hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </f:facet>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+
+
+                <h:form id="formUpdate">
+                    <p:dialog  header="District Update" widgetVar="dlg" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel  id="districtUpdate" style="text-align:center;">
+                            <h:panelGrid columns="2" rendered="#{not empty districtBean.districtSelected}" style="border: 0"  columnClasses="label,value">
+
+                                <h:outputText value="Province" />
+                                <p:selectOneMenu id="provinceidupdate" value="#{districtBean.districtSelected.province.provId}" required="true" requiredMessage="Required type of property field " style="width:125px;margin: 10px 85px 5px 0;"  >  
+                                    <f:selectItems value="#{districtBean.allProvince}" var="provupdate" itemLabel="#{provupdate.provName}" itemValue="#{provupdate.provId}"/>  
+                                </p:selectOneMenu>
+
+                                <h:outputText value="Name" />
+                                <p:inputText value="#{districtBean.districtSelected.distName}" required="true" style="font-weight: bold"/>
+
+                                <h:outputText value="Desc" />
+                                <p:inputText value="#{districtBean.districtSelected.distDescription}" style="font-weight: bold"/>
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Update"  oncomplete="handleRequest(xhr, status, args)"
+                                                     update=":formView:, :formView:msgs"  actionListener="#{districtBean.updateDistrict}"
+                                                     styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Cancel" type="button" onclick="PF('dlg').hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </f:facet>
+                                <h:inputHidden value="#{districtBean.districtSelected.distId}"/>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formDel">
+                    <p:outputPanel  id="districtDel" style="text-align:center;">
+                        <p:confirmDialog rendered="#{not empty districtBean.districtSelected}" 
+                                         widgetVar="dlg"
+                                         message="Are you sure to delete this district?" >
+                            <p:commandButton id="confirm" value="Yes" 
+                                             update=":formView:, :formView:msgs" oncomplete="PF('dlg').hide()"
+                                             actionListener="#{districtBean.deleteDistrict}"
+                                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton id="cancel" value="No" type="button" onclick="PF('dlg').hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            <h:inputHidden value="#{districtBean.districtSelected.distId}"/>
+                        </p:confirmDialog>
+                    </p:outputPanel>
+                </h:form>
+
+
+                <script type="text/javascript">
+                    function handleRequest(xhr, status, args) {
+                        if (args.validationFailed) {
+                            //PF('dlg').jq.effect("shake", {times: 5}, 100);
+                        }
+                        else {
+
+                            PF('dlg').hide();
+
+                        }
+                    }
+                </script>
+
+
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>
